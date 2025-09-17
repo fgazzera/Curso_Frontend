@@ -1,0 +1,24 @@
+  
+/* CV */
+.perfil{ 
+  display:grid; 
+  grid-template-columns: 90px 1fr; 
+  gap:12px; 
+  align-items:center; 
+}
+
+.perfil img{ 
+  width:90px; 
+  height:90px; 
+  border-radius:8px; 
+  object-fit:cover; 
+}
+
+.pill{ 
+  display:inline-block; 
+  padding:2px 8px; 
+  border:1px solid #e5e7eb; 
+  border-radius:999px; 
+  font-size:.85rem; 
+  margin-right:6px; 
+}

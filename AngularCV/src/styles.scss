@@ -1,0 +1,122 @@
+/* ===== Estilos Globales ===== */
+*{ box-sizing: border-box; }
+body{ 
+  margin:0; 
+  font-family: Arial, Helvetica, sans-serif; 
+  line-height:1.5; 
+  background:#f5f7fa; 
+  color:#222; 
+}
+
+img{ 
+  max-width:100%; 
+  display:block; 
+}
+
+.container{ 
+  width: min(100%, 960px); 
+  margin: 0 auto; 
+  padding: 0px -1rem;
+}
+
+/* Encabezado y navegación simple */
+header{ 
+  background:#ffffff; 
+  border-bottom:1px solid #e5e7eb; 
+  position: sticky; 
+  top:0; 
+}
+
+.topbar{ 
+  display:flex; 
+  justify-content:space-between; 
+  align-items:center; 
+  padding:12px 0; 
+}
+
+.brand{ 
+  font-weight:bold; 
+  font-size: 1.5rem;
+}
+
+nav ul{ 
+  list-style:none; 
+  padding:0; 
+  margin:0; 
+  display:flex; 
+  gap:8px; 
+}
+
+nav a{ 
+  text-decoration:none; 
+  color:#333; 
+  padding:6px 10px; 
+  border-radius:6px; 
+}
+
+nav a:hover{ 
+  background:#eef2ff; 
+}
+
+/* Sección de bienvenida */
+.hero {
+  background: #8293ca;
+  border: 2px solid #036685;
+  border-radius: 20px;
+  padding: 16px;
+  width: 60%;
+  margin: 1.5rem auto;  
+  justify-items: center;
+}
+.hero h1{ 
+  margin:0 0 6px; 
+  font-size:1.5rem; 
+}
+.hero p{
+   margin:0; 
+   color:#374151; 
+}
+
+/* Layout principal (columna única en móvil) */
+.grid{ 
+  display:grid; 
+  gap:16px; 
+  margin:16px 0 24px; 
+}
+
+/* (columna única en móvil) */
+@media(min-width: 720px){
+  .grid{ grid-template-columns: 1fr 1fr; }
+}
+
+/* Estilo de las tarjetas (secciones)*/
+.card{
+  background:#fff; 
+  border:1px solid #e5e7eb; 
+  border-radius:10px; 
+  overflow:hidden;
+}
+
+.card_body{ 
+  padding:12px 14px; 
+}
+
+.card--bg{ 
+  min-height:220px; 
+  background:url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8S0CwY41eKZ86uBJDu5oXQtBsSj1JSBXNJw&s') center/cover no-repeat; 
+  display:flex; 
+  align-items:flex-end; 
+}
+
+.card--bg .card_body{ 
+  background: rgba(0,0,0,.55); 
+  color:#fff; 
+}
+
+/* Pie de página */
+footer{ 
+  color:#6b7280; 
+  font-size:.95rem; 
+  justify-content: center;
+  margin: auto;
+}
