@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Demostración: Selectores y Especificidad</title>
+<style>
+  /* ====== Base visual (para que se note todo) ====== */
+  * { box-sizing: border-box; }
+  body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; margin: 0; padding: 2rem; line-height: 1.6; background: #f7fafc; color: #111; }
+  .panel { background: #fff; border: 1px solid #e5e7eb; border-radius: .75rem; padding: 1rem 1.25rem; margin-bottom: 1rem; }
+  .row { display: flex; flex-wrap: wrap; gap: 1rem; }
+  .box { flex: 1 1 280px; min-height: 60px; border: 2px dashed #e5e7eb; border-radius: .5rem; padding: .75rem; background: #fff; }
+  .tag { display: inline-block; font-size: .8rem; background: #eef2ff; color: #3730a3; padding: .1rem .4rem; border-radius: .25rem; margin-right: .25rem; }
+
+  /* ====== 1) UNIVERSAL y TIPO ====== */
+  * { /* universal (muy baja especificidad) */
+    /* Solo para demo: no toques color aquí para no confundir otros ejemplos */
+  }
+  p { color: #111; } /* selector de TIPO */
+
+  /* ====== 2) CLASE, ID, ATRIBUTO ====== */
+  .destacado { color: green; }              /* clase (10) */
+  #aviso { color: red; }                    /* id (100) */
+  [data-alert="true"] { color: orange; }    /* atributo (10) */
+
+  /* ====== 3) COMBINADORES ====== */
+  /* Descendiente: cualquier p dentro de .contenedor */
+  .contenedor p { color: #0f766e; } /* teal */
+  /* Hijo directo: solo p hijos DIRECTOS de .contenedor */
+  .contenedor > p { text-decoration: underline; }
+  /* Adyacente: p inmediatamente después de h2 */
+  h2 + p { font-style: italic; }
+  /* Hermano general: todos los p que siguen a .lead en el mismo nivel */
+  .lead ~ p { background: #fef3c7; } /* amarillito */
+
+  /* ====== 4) PSEUDOCLASES ====== */
+  a:link { color: #0b57d0; }
+  a:visited { color: #6b21a8; }
+  a:hover { text-decoration: underline; }
+  input:focus { outline: 2px solid #0b57d0; outline-offset: 2px; }
+  li:first-child { font-weight: 700; }
+  li:nth-of-type(2n) { background: #f3f4f6; }
+  .chips .chip:not(.activo) { opacity: .6; }
+
+  /* ====== 5) PSEUDOELEMENTOS ====== */
+  .decorado::before { content: "→ "; }
+  .decorado::after  { content: " ✔"; color: #16a34a; }
+  .intro::first-line { text-transform: uppercase; letter-spacing: .5px; }
+
+  /* ====== 6) ESPECIFICIDAD EN CONFLICTO ====== */
+  /* Escena: el mismo elemento coincide con varios selectores */
+  p.conflicto { color: #2563eb; }          /* clase (10) → azul */
+  #bloque p.conflicto { color: #10b981; }  /* id (100) + clase (10) = gana sobre la anterior → verde */
+  /* Empate por especificidad: gana la ÚLTIMA regla escrita */
+  .empate { color: #7c3aed; }              /* clase (10) → violeta */
+  .empate { color: #dc2626; }              /* misma especificidad, aparece después → rojo (cascada) */
+
+  /* ====== 7) !important (rompe la cascada) ====== */
+  .forzar { color: #111 !important; }  /* fuerza este color aunque otra regla sea más específica */
+  /* Incluso puede vencer un id, salvo que el id también use !important */
+  #mas-fuerte { color: #e11d48 !important; } /* id + !important > clase + !important */
+
+  /* ====== 8) INLINE STYLE (aún más fuerte que id) ====== */
+  /* El inline style equivale a especificidad 1000; solo lo vence otro !important inline */
+</style>
+</head>
+<body>
+
+  <h1>Demostración: Selectores, Especificidad, Cascada, <code>!important</code> e Inline</h1>
+
+  <div class="panel">
+    <strong>Objetivo en clase:</strong>
+    <ul>
+      <li>Leer las etiquetas <span class="tag">h2</span> de cada bloque y predecir el color/estilo final.</li>
+      <li>Usar DevTools para ver <em>qué regla gana</em> y por qué.</li>
+    </ul>
+  </div>
+
+  <!-- 1) UNIVERSAL, TIPO -->
+  <section class="panel">
+    <h2>1) Universal y de Tipo</h2>
+    <div class="row">
+      <div class="box">
+        <p>Este <strong>p</strong> está estilado por el selector de tipo <code>p</code> (color base).</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2) CLASE, ID, ATRIBUTO -->
+  <section class="panel">
+    <h2>2) Clase, ID, Atributo</h2>
+    <div class="row">
+      <div class="box">
+        <p class="destacado">CLASE: debería verse <strong>verde</strong> por <code>.destacado</code>.</p>
+      </div>
+      <div class="box">
+        <p id="aviso">ID: debería verse <strong>rojo</strong> por <code>#aviso</code> (pesa 100).</p>
+      </div>
+      <div class="box">
+        <p data-alert="true">ATRIBUTO: debería verse <strong>naranja</strong> por <code>[data-alert="true"]</code>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3) COMBINADORES -->
+  <section class="panel">
+    <h2>3) Combinadores</h2>
+
+    <div class="box contenedor">
+      <span class="tag">.contenedor p</span>
+      <span class="tag">.contenedor > p</span>
+      <h3 class="lead">Lead</h3>
+      <p>Hijo DIRECTO de .contenedor → <em>teal</em> y <em>subrayado</em>.</p>
+      <div>
+        <p>Descendiente (no hijo directo) → <em>teal</em> pero <u>sin</u> subrayado.</p>
+      </div>
+      <h2>Subtítulo</h2>
+      <p>Selector adyacente <code>h2 + p</code> → <em>itálica</em>.</p>
+      <p>Hermano general tras .lead (<code>.lead ~ p</code>) → fondo <em>amarillo pálido</em>.</p>
+    </div>
+  </section>
+
+  <!-- 4) PSEUDOCLASES -->
+  <section class="panel">
+    <h2>4) Pseudoclases</h2>
+    <div class="row">
+      <div class="box">
+        <p><a href="https://example.com">Link (pasá el mouse para :hover)</a></p>
+        <p><label>Focus: <input placeholder="Hacé click aquí" /></label></p>
+      </div>
+      <div class="box">
+        <ul>
+          <li>first-child (negrita)</li>
+          <li>par (fondo gris claro)</li>
+          <li>impar</li>
+          <li>par (fondo gris claro)</li>
+        </ul>
+      </div>
+      <div class="box chips">
+        <span class="chip tag activo">activo</span>
+        <span class="chip tag">inactivo (opaco por :not(.activo))</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5) PSEUDOELEMENTOS -->
+  <section class="panel">
+    <h2>5) Pseudo-elementos</h2>
+    <div class="row">
+      <div class="box">
+        <p class="decorado">Este párrafo tiene <code>::before</code> y <code>::after</code>.</p>
+        <p class="intro">La primera línea de este párrafo aparece en mayúsculas y con tracking por <code>::first-line</code>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6) ESPECIFICIDAD EN CONFLICTO -->
+  <section id="bloque" class="panel">
+    <h2>6) Especificidad en conflicto (clase vs id vs cascada)</h2>
+    <div class="row">
+      <div class="box">
+        <!-- Coincide p.conflicto (10) y #bloque p.conflicto (110) -->
+        <p class="conflicto">Debería verse <strong>verde</strong> (gana <code>#bloque p.conflicto</code>).</p>
+      </div>
+      <div class="box">
+        <!-- Dos reglas .empate con misma especificidad; gana la última (rojo) -->
+        <p class="empate">Empate de clase: debería verse <strong>rojo</strong> (última regla gana).</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7) !important -->
+  <section class="panel">
+    <h2>7) <code>!important</code></h2>
+    <div class="row">
+      <div class="box">
+        <p class="forzar destacado" id="no-importa-id">
+          Clase <code>.forzar</code> con <code>!important</code> gana a otras reglas
+          aunque haya un ID sin <code>!important</code>.
+        </p>
+      </div>
+      <div class="box">
+        <p id="mas-fuerte" class="forzar">
+          Aquí hay <code>#mas-fuerte { color: ... !important }</code>: ID + <code>!important</code>
+          gana sobre la clase con <code>!important</code>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8) INLINE STYLE -->
+  <section class="panel">
+    <h2>8) Inline style (especificidad 1000)</h2>
+    <div class="row">
+      <div class="box">
+        <p id="inline-demo" class="destacado" style="color: purple;">
+          Este texto debería verse <strong>violeta</strong> por <code>style="color: purple"</code>
+          (solo lo supera otro <code>!important</code> inline).
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <div class="panel" style="background:#f0fdf4;border-color:#bbf7d0">
+    <strong>Actividad rápida:</strong>
+    <ol>
+      <li>Con DevTools, inspeccioná <em>cada ejemplo</em> y observá qué regla se aplica y cuál queda tachada.</li>
+      <li>Probá agregar <code>!important</code> a alguna regla en el inspector y mirá cómo cambia el resultado.</li>
+      <li>Cambiá el orden de dos reglas con misma especificidad y verificá la cascada.</li>
+    </ol>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Colores, tipografía y fondos — Demo</title>
+<style>
+  /* ===== Paleta & base ===== */
+  :root{
+    /* Paleta en HSL para ajustar fácil tono/saturación/luz */
+    --primary: hsl(210 90% 55%);
+    --primary-600: hsl(210 90% 45%);
+    --primary-700: hsl(210 90% 35%);
+    --text: hsl(222 15% 15%);
+    --muted: hsl(222 10% 45%);
+    --bg: hsl(210 30% 98%);
+    --card: #fff;
+    --ring: hsl(210 90% 55% / .35);
+    --success: hsl(150 65% 40%);
+    --warning: hsl(42 95% 45%);
+    --danger: hsl(0 80% 50%);
+  }
+
+  /* Reset corto */
+  *, *::before, *::after { box-sizing: border-box; }
+  html { font-size: 100%; } /* ~16px */
+  body {
+    margin: 0; color: var(--text); background: var(--bg);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    line-height: 1.6;
+  }
+  img { max-width: 100%; height: auto; display: block; }
+  :focus { outline: 2px solid var(--ring); outline-offset: 2px; }
+
+  /* Layout */
+  .container { width: min(1100px, 92%); margin-inline: auto; }
+  section { margin-block: 2rem; }
+  .card {
+    background: var(--card); border: 1px solid #e5e7eb; border-radius: 1rem;
+    padding: 1.25rem; box-shadow: 0 1px 2px rgba(0,0,0,.04);
+  }
+
+  /* ===== Tipografía ===== */
+  h1 { font-size: clamp(1.8rem, 2.6vw + 1rem, 3rem); line-height: 1.2; margin: 0 0 .5rem; }
+  h2 { font-size: clamp(1.3rem, 1.2vw + .9rem, 1.75rem); line-height: 1.25; margin: 0 0 .75rem; }
+  p  { font-size: 1rem; margin: 0 0 .75rem; color: var(--muted); }
+  .lead { font-size: clamp(1.05rem, .6vw + .9rem, 1.25rem); color: var(--text); }
+  code { background: #f3f4f6; padding: .1rem .35rem; border-radius: .35rem; }
+
+  /* ===== Botones mostrando currentColor ===== */
+  .btn {
+    display: inline-flex; align-items: center; gap: .5rem;
+    padding: .65rem 1rem; border-radius: .75rem; cursor: pointer;
+    font-weight: 600; text-decoration: none; transition: transform .05s ease;
+  }
+  .btn:active { transform: translateY(1px); }
+
+  .btn-primary {
+    color: white; background: var(--primary); border: 2px solid currentColor;
+  }
+  .btn-primary:hover { background: var(--primary-600); }
+  .btn-outline {
+    color: var(--primary-700); background: white; border: 2px solid currentColor;
+  }
+  .btn-outline:hover { color: var(--primary-600); }
+
+  /* ===== Paleta de colores (swatches) ===== */
+  .swatches { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: .75rem; }
+  .swatch {
+    border-radius: .75rem; padding: .75rem; border: 1px solid #e5e7eb; background: white;
+    display: grid; gap: .5rem;
+  }
+  .chip {
+    height: 54px; border-radius: .5rem; border: 1px solid #e5e7eb;
+  }
+  .chip.primary   { background: var(--primary); }
+  .chip.success   { background: var(--success); }
+  .chip.warning   { background: var(--warning); }
+  .chip.danger    { background: var(--danger); }
+  .chip.muted     { background: var(--muted); }
+  .chip.alpha     { background: hsl(210 90% 55% / .35); } /* notación con barra: transparencia */
+
+  /* ===== Fondos ===== */
+  .hero {
+    color: white; border-radius: 1.25rem; overflow: hidden; margin-top: 1rem;
+    /* Múltiples capas: el primer layer (gradiente) va arriba */
+    background:
+      linear-gradient(hsl(210 90% 25% / .15), hsl(210 90% 25% / .55)),
+      url('https://images.unsplash.com/photo-1527443154391-507e9dc6c5cc?auto=format&fit=crop&w=1400&q=60')
+      center / cover no-repeat;
+  }
+  .hero-inner { padding: clamp(1.25rem, 3vw + 1rem, 3rem); }
+  .hero p { color: hsl(0 0% 100% / .9); }
+
+  .bg-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem;
+  }
+  .bgbox {
+    border-radius: .75rem; padding: 1rem; color: #111; min-height: 200px;
+    display: grid; align-content: end; border: 1px solid #e5e7eb; background: white;
+  }
+  .bg-cover {
+    color: white;
+    background:
+      linear-gradient(to top, hsl(222 15% 10% / .6), hsl(222 15% 10% / 0)),
+      url('https://picsum.photos/600/400') center / cover no-repeat;
+  }
+  .bg-contain {
+    background:
+      url('https://picsum.photos/400/600') center / contain no-repeat,
+      linear-gradient(#fff, #fff); /* capa de fondo blanco para ver espacios libres */
+  }
+  .bg-multi {
+    /* Acá se ve el overlay con gradiente + patrón + color de base */
+    background:
+      linear-gradient(135deg, hsl(210 90% 55% / .25), hsl(280 90% 55% / .25)),
+      url('https://www.transparenttextures.com/patterns/cubes.png') center / 300px repeat,
+      #fff;
+  }
+  .badge {
+    display: inline-block; padding: .35rem .6rem; border-radius: .5rem;
+    background: white; color: var(--primary-700); border: 2px solid currentColor; font-weight: 700;
+  }
+
+  /* ===== Tarjetas de ejemplo ===== */
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; }
+  .card .title { margin: 0 0 .35rem; color: var(--text); }
+  .meta { color: var(--muted); font-size: .95rem; margin-bottom: .5rem; }
+</style>
+</head>
+<body>
+  <!-- HERO con múltiples fondos -->
+  <header class="container hero" role="banner">
+    <div class="hero-inner">
+      <h1>Frontend: Colores, Tipografía y Fondos</h1>
+      <p class="lead">Variables CSS en HSL, tipografía fluida con <code>clamp()</code>, <code>currentColor</code>, y fondos con capas.</p>
+      <p>
+        <a class="btn btn-primary" href="#paleta">Ver paleta</a>
+        <a class="btn btn-outline" href="#fondos">Ver fondos</a>
+      </p>
+    </div>
+  </header>
+
+  <main class="container" id="contenido">
+    <!-- TIPOGRAFÍA -->
+    <section class="card" aria-labelledby="tipografia">
+      <h2 id="tipografia">Tipografía fluida</h2>
+      <p class="lead">Los tamaños de encabezado se adaptan al ancho de pantalla con <code>clamp(min, preferido, max)</code>.</p>
+      <p>Usamos <code>rem</code> para escalar accesible, y <code>line-height</code> sin unidades para herencia consistente.</p>
+      <div class="cards" style="margin-top:.5rem">
+        <article class="card">
+          <h3 class="title">Títulos</h3>
+          <p class="meta">Escala con <code>clamp()</code></p>
+          <h1 style="margin:.25rem 0">H1 grande</h1>
+          <h2 style="margin:.25rem 0">H2 mediano</h2>
+          <p>Texto normal con <code>1rem</code> y <code>line-height: 1.6</code>.</p>
+        </article>
+        <article class="card">
+          <h3 class="title">Botones</h3>
+          <p class="meta">`currentColor` en acción</p>
+          <p>
+            <a class="btn btn-primary" href="#">Primario</a>
+            <a class="btn btn-outline" href="#">Outline</a>
+          </p>
+          <p style="color: var(--success)"><span class="btn btn-outline">Éxito</span></p>
+        </article>
+      </div>
+    </section>
+
+    <!-- PALETA -->
+    <section class="card" id="paleta" aria-labelledby="paleta-tit">
+      <h2 id="paleta-tit">Paleta (variables CSS)</h2>
+      <p>Centralizá colores en <code>:root</code> y referenciá con <code>var(--token)</code>.</p>
+      <div class="swatches" style="margin-top:.5rem">
+        <div class="swatch"><div class="chip primary"></div><strong>--primary</strong><small>hsl(210 90% 55%)</small></div>
+        <div class="swatch"><div class="chip muted"></div><strong>--muted</strong><small>texto secundario</small></div>
+        <div class="swatch"><div class="chip success"></div><strong>--success</strong><small>feedback positivo</small></div>
+        <div class="swatch"><div class="chip warning"></div><strong>--warning</strong><small>aviso</small></div>
+        <div class="swatch"><div class="chip danger"></div><strong>--danger</strong><small>error</small></div>
+        <div class="swatch"><div class="chip alpha"></div><strong>HSL con alpha</strong><small>hsl(210 90% 55% / .35)</small></div>
+      </div>
+    </section>
+
+    <!-- FONDOS -->
+    <section class="card" id="fondos" aria-labelledby="fondos-tit">
+      <h2 id="fondos-tit">Fondos: cover, contain y múltiples capas</h2>
+      <p>Usá <code>background</code> en shorthand: <code>posición / tamaño repetición</code>. El primer layer se pinta arriba.</p>
+
+      <div class="bg-grid" style="margin-top:.5rem">
+        <div class="bgbox bg-cover">
+          <span class="badge">cover</span>
+        </div>
+        <div class="bgbox bg-contain">
+          <span class="badge">contain</span>
+        </div>
+        <div class="bgbox bg-multi">
+          <span class="badge">gradiente + patrón + color</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tarjetas con colores de estado (extra) -->
+    <section class="cards" aria-label="Ejemplos de tarjetas con colores de estado">
+      <article class="card">
+        <h3 class="title" style="color: var(--success)">Estado: OK</h3>
+        <p>Mensajes de éxito usando <code>--success</code>.</p>
+      </article>
+      <article class="card">
+        <h3 class="title" style="color: var(--warning)">Estado: Aviso</h3>
+        <p>Mensajes de advertencia usando <code>--warning</code>.</p>
+      </article>
+      <article class="card">
+        <h3 class="title" style="color: var(--danger)">Estado: Error</h3>
+        <p>Mensajes de error usando <code>--danger</code>.</p>
+      </article>
+    </section>
+  </main>
+
+  <footer class="container" style="margin-block:2rem; color: var(--muted);">
+    <p>&copy; 2025 Demo Frontend · Colores, Tipografía y Fondos</p>
+  </footer>
+</body>
+</html>

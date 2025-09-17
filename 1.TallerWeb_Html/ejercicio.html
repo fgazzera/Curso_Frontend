@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Portafolio — Solución</title>
+<meta name="description" content="Landing de portafolio accesible y responsive (solución posible del ejercicio)." />
+<style>
+  /* ===== Base y tokens ===== */
+  *, *::before, *::after { box-sizing: border-box; }
+  :root{
+    --bg: hsl(210 30% 98%);
+    --card: #fff;
+    --text: hsl(222 15% 15%);
+    --muted: hsl(222 10% 45%);
+    --primary: hsl(210 90% 55%);
+    --primary-600: hsl(210 90% 45%);
+    --ring: hsl(210 90% 55% / .35);
+    --border: #e5e7eb;
+  }
+  html { font-size: 100%; } /* ~16px */
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    line-height: 1.6;
+  }nav 
+  img { max-width: 100%; height: auto; display: block; }
+  :focus { outline: 2px solid var(--ring); outline-offset: 2px; }
+  .container { width: min(1100px, 92%); margin-inline: auto; }
+  .panel { background: var(--card); border: 1px solid var(--border); border-radius: 1rem; padding: 1rem 1.25rem; }
+
+  /* ===== Skip link ===== */
+  .skip-link {
+    position: fixed; left: -999px; top: .5rem; background: var(--primary); color: #fff;
+    padding: .5rem .75rem; border-radius: .5rem; z-index: 1000;
+  }
+  .skip-link:focus { left: .5rem; }
+
+  /* ===== Header + nav ===== */
+  header { position: sticky; top: 0; z-index: 10; background: #fff; border-bottom: 1px solid var(--border); }
+  .topbar {
+    display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: .75rem 0;
+  }
+  .brand { display: flex; align-items: center; gap: .6rem; text-decoration: none; color: inherit; }
+  .logo { width: 36px; height: 36px; border-radius: 8px; background: var(--primary); }
+  nav ul { list-style: none; display: flex; gap: .5rem; flex-wrap: wrap; margin: 0; padding: 0; }
+  nav a { text-decoration: none; padding: .45rem .65rem; border-radius: .5rem; }
+  nav a:hover { background: #f3f4f6; }
+
+  /* ===== Hero ===== */
+  .hero {
+    margin-block: 1rem;
+    color: #fff; border-radius: 1.25rem; overflow: hidden;
+    background:
+      linear-gradient(hsl(210 90% 20% / .55), hsl(210 90% 20% / .55)),
+      url('https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=1400&q=60')
+      center / cover no-repeat;
+  }
+  .hero-inner { padding: clamp(1.25rem, 3vw + 1rem, 3rem); }
+  h1 { font-size: clamp(1.9rem, 2.5vw + 1rem, 3rem); line-height: 1.2; margin: 0 0 .5rem; }
+  .lead { color: hsl(0 0% 100% / .92); margin: 0 0 1rem; }
+  .btn {
+    display: inline-block; font-weight: 600; border-radius: .75rem; text-decoration: none;
+    padding: .6rem 1rem; border: 2px solid currentColor;
+  }
+  .btn-primary { color: #fff; background: var(--primary); border-color: currentColor; }
+  .btn-primary:hover { background: var(--primary-600); }
+
+  /* ===== Secciones ===== */
+  main { display: grid; gap: 1rem; margin-bottom: 2rem; }
+  h2 { font-size: clamp(1.25rem, 1.1vw + .9rem, 1.75rem); margin: 0 0 .5rem; }
+  p { margin: 0 0 .75rem; }
+  .muted { color: var(--muted); }
+
+  /* ===== Grid de proyectos ===== */
+  .projects { display: grid; gap: 1rem; }
+  .grid {
+    display: grid; gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  }
+  .card {
+    background: #fff; border: 1px solid var(--border); border-radius: .9rem; overflow: hidden;
+    display: grid; grid-template-rows: auto 1fr auto;
+  }
+  .thumb { aspect-ratio: 16/9; background: linear-gradient(135deg, #e5e7eb, #f3f4f6); }
+  .card-body { padding: .9rem; }
+  .card h3 { margin: 0 0 .35rem; font-size: 1.05rem; }
+  .tags { display: flex; gap: .4rem; flex-wrap: wrap; }
+  .tag { display: inline-block; font-size: .85rem; padding: .2rem .5rem; border-radius: .5rem; border: 1px solid currentColor; color: var(--primary); background: #fff; }
+
+  /* ===== Aside ===== */
+  .aside { display: grid; gap: .5rem; }
+  .aside .list { padding-left: 1rem; margin: 0; }
+  .aside .list li { margin: .15rem 0; }
+
+  /* ===== Contacto (formulario accesible) ===== */
+  .contact form {
+    display: grid; gap: .9rem;
+  }
+  .field { display: grid; gap: .35rem; }
+  label { font-weight: 600; color: var(--muted); }
+  input, textarea, select, button {
+    font: inherit; padding: .55rem .7rem; border: 1px solid var(--border); border-radius: .6rem;
+  }
+  textarea { resize: vertical; min-height: 120px; }
+  .row { display: grid; gap: .9rem; }
+  @media (min-width: 720px){
+    .row { grid-template-columns: 1fr 1fr; }
+  }
+  .actions { display: flex; gap: .6rem; justify-content: flex-end; }
+  .btn-ghost { color: var(--primary); background: #fff; border-color: currentColor; }
+  .btn-ghost:hover { background: #f3f4f6; }
+
+  /* ===== Layout con aside en desktop ===== */
+  .layout { display: grid; gap: 1rem; }
+  @media (min-width: 960px){
+    .layout {
+      grid-template-columns: 2fr 1fr; /* contenido / aside */
+      align-items: start;
+    }
+  }
+
+  /* ===== Footer ===== */
+  footer { margin-block: 2rem; color: var(--muted); }
+  .foot-inner { display: flex; flex-wrap: wrap; gap: .75rem; justify-content: space-between; align-items: center; }
+</style>
+</head>
+<body>
+  <a class="skip-link" href="#contenido">Saltar al contenido principal</a>
+
+  <!-- Header + Nav -->
+  <header role="banner">
+    <div class="container topbar">
+      <a class="brand" href="#" aria-label="Inicio">
+        <span class="logo" aria-hidden="true"></span>
+        <strong>Nicolas Rodriguez</strong>
+      </a>
+      <nav aria-label="Navegación principal">
+        <ul>
+          <li><a href="#proyectos">Proyectos</a></li>
+          <li><a href="#sobre-mi">Sobre mí</a></li>
+          <li><a href="#contacto">Contacto</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="container hero">
+    <div class="hero-inner">
+      <h1>Desarrollador Frontend</h1>
+      <p class="lead">Construyo interfaces accesibles, rápidas y responsivas con HTML, CSS, React y Angular.</p>
+      <a class="btn btn-primary" href="#proyectos">Ver proyectos</a>
+    </div>
+  </section>
+
+  <!-- Main content + Aside -->
+  <main id="contenido" class="container layout" tabindex="-1">
+    <!-- Contenido principal -->
+    <div class="content">
+      <!-- Proyectos -->
+      <section id="proyectos" class="panel projects" aria-labelledby="tit-proyectos">
+        <h2 id="tit-proyectos">Proyectos destacados</h2>
+        <p class="muted">Grilla responsiva con <code>repeat(auto-fit, minmax(220px, 1fr))</code>.</p>
+
+        <div class="grid">
+          <article class="card">
+            <img class="thumb" src="https://picsum.photos/800/450?random=11" alt="Captura del proyecto Ecommerce React" />
+            <div class="card-body">
+              <h3>Ecommerce React</h3>
+              <p>Tienda SPA con filtros y carrito.</p>
+              <div class="tags"><span class="tag">React</span><span class="tag">CSS</span><span class="tag">API</span></div>
+            </div>
+          </article>
+
+          <article class="card">
+            <img class="thumb" src="https://picsum.photos/800/450?random=22" alt="Captura del proyecto Dashboard Angular" />
+            <div class="card-body">
+              <h3>Dashboard Angular</h3>
+              <p>Panel administrativo con tablas y gráficos.</p>
+              <div class="tags"><span class="tag">Angular</span><span class="tag">SCSS</span><span class="tag">Charts</span></div>
+            </div>
+          </article>
+
+          <article class="card">
+            <img class="thumb" src="https://picsum.photos/800/450?random=33" alt="Captura del proyecto Landing accesible" />
+            <div class="card-body">
+              <h3>Landing accesible</h3>
+              <p>Semántica, a11y y rendimiento.</p>
+              <div class="tags"><span class="tag">HTML</span><span class="tag">a11y</span><span class="tag">SEO</span></div>
+            </div>
+          </article>
+
+          <article class="card">
+            <img class="thumb" src="https://picsum.photos/800/450?random=44" alt="Captura del proyecto Catálogo" />
+            <div class="card-body">
+              <h3>Catálogo</h3>
+              <p>Listado con buscador y detalle.</p>
+              <div class="tags"><span class="tag">Grid</span><span class="tag">Fetch</span></div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- Contacto -->
+      <section id="contacto" class="panel contact" aria-labelledby="tit-contacto">
+        <h2 id="tit-contacto">Contacto</h2>
+        <p class="muted">Formulario con validaciones nativas y labels asociadas.</p>
+
+        <form action="/enviar" method="post" aria-label="Formulario de contacto">
+          <div class="row">
+            <div class="field">
+              <label for="nombre">Nombre completo</label>
+              <input id="nombre" name="nombre" type="text" required minlength="3" placeholder="Ada Lovelace" />
+            </div>
+            <div class="field">
+              <label for="email">Correo electrónico</label>
+              <input id="email" name="email" type="email" required placeholder="ada@ejemplo.com" />
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="field">
+              <label for="telefono">Teléfono</label>
+              <input id="telefono" name="telefono" type="tel" pattern="[0-9]{10}" placeholder="1122334455" />
+            </div>
+            <div class="field">
+              <label for="motivo">Motivo</label>
+              <select id="motivo" name="motivo" required>
+                <option value="">Seleccioná una opción</option>
+                <option value="proyecto">Propuesta de proyecto</option>
+                <option value="consulta">Consulta</option>
+                <option value="otros">Otros</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="mensaje">Mensaje</label>
+            <textarea id="mensaje" name="mensaje" rows="6" minlength="10" required placeholder="Contame sobre tu necesidad..."></textarea>
+          </div>
+
+          <div class="actions">
+            <button class="btn btn-ghost" type="reset">Limpiar</button>
+            <button class="btn btn-primary" type="submit">Enviar</button>
+          </div>
+        </form>
+      </section>
+    </div>
+
+    <!-- Aside -->
+    <aside id="sobre-mi" class="panel aside" aria-labelledby="tit-aside">
+      <h2 id="tit-aside">Sobre mí</h2>
+      <p>Soy desarrollador frontend con foco en accesibilidad, performance y DX.</p>
+      <ul class="list">
+        <li>🏷️ <strong>Stack:</strong> HTML, CSS, JS, React, Angular</li>
+        <li>⚡ <strong>Intereses:</strong> UI performance, a11y, DX</li>
+        <li>💬 <strong>Idiomas:</strong> Español / Inglés</li>
+      </ul>
+    </aside>
+  </main>
+
+  <!-- Footer -->
+  <footer class="container">
+    <div class="foot-inner">
+      <p>&copy; 2025 Nicolas Rodriguez — Portafolio</p>
+    </div>
+  </footer>
+</body>
+</html>
+

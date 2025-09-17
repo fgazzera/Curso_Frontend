@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Responsive + Media Queries — Demo</title>
+<style>
+  /* Paleta y base */
+  :root{
+    --bg: #f8fafc; --card:#fff; --border:#e5e7eb;
+    --text:#111; --muted:#6b7280; --primary:#2563eb;
+  }
+  *{ box-sizing: border-box; }
+  html{ font-size:100%; } /* ~16px */
+  body{
+    margin:0; color:var(--text); background:var(--bg);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    line-height:1.6;
+  }
+  img{ max-width:100%; height:auto; display:block; }
+
+  .container{ width:min(1100px,92%); margin-inline:auto; }
+  header{ position:sticky; top:0; background:#fff; border-bottom:1px solid var(--border); z-index:10; }
+  .topbar{ display:flex; align-items:center; justify-content:space-between; gap:.75rem; padding:.75rem 0; }
+  .brand{ display:flex; align-items:center; gap:.5rem; text-decoration:none; color:inherit; }
+  .brand .logo{ width:36px; height:36px; border-radius:8px; background:var(--primary); }
+  nav ul{ list-style:none; margin:0; padding:0; display:flex; gap:.5rem; flex-wrap:wrap; }
+  nav a{ text-decoration:none; padding:.45rem .6rem; border-radius:.5rem; }
+  nav a:hover{ background:#f3f4f6; }
+
+  h1{ font-size: clamp(1.6rem, 2.2vw + 1rem, 2.5rem); line-height:1.2; margin:.5rem 0; }
+  h2{ font-size: clamp(1.2rem, 1vw + .9rem, 1.6rem); margin:0 0 .5rem; }
+  p.lead{ color:var(--muted); margin:0 0 1rem; }
+
+  .panel{ background:var(--card); border:1px solid var(--border); border-radius:1rem; padding:1rem 1.25rem; margin-block:1rem; }
+
+  /* Galería responsive: mobile-first → se escalan columnas con min-width */
+  .gallery{
+    display:grid;
+    gap:1rem;
+    grid-template-columns: 1fr;            /* móvil: 1 col */
+  }
+  /* SM */
+  @media (min-width: 600px){
+    .gallery{ grid-template-columns: repeat(2, 1fr); } /* 2 cols */
+  }
+  /* MD */
+  @media (min-width: 900px){
+    .gallery{ grid-template-columns: repeat(3, 1fr); } /* 3 cols */
+  }
+  /* LG */
+  @media (min-width: 1200px){
+    .gallery{ grid-template-columns: repeat(4, 1fr); } /* 4 cols */
+  }
+
+  .card{
+    background:#fff; border:1px solid var(--border); border-radius:.75rem;
+    padding:1rem; display:grid; gap:.5rem;
+  }
+  .thumb{ aspect-ratio: 16/9; border-radius:.5rem; background: linear-gradient(135deg,#e5e7eb,#f3f4f6); }
+
+  /* Ejemplo puntual con max-width (no es la regla general, solo para casos específicos) */
+  @media (max-width: 360px){
+    .cta-large{ display:none; } /* oculto CTA grande en ultra chico */
+  }
+
+  /* Indicador de breakpoint (solo para clase) */
+  body::after{
+    content:"XS <600px";
+    position:fixed; right:.5rem; bottom:.5rem;
+    background:#111; color:#fff; font:600 12px/1.6 system-ui, sans-serif;
+    padding:.35rem .5rem; border-radius:.5rem; opacity:.75;
+  }
+  @media (min-width:600px){ body::after{ content:"SM ≥600px"; } }
+  @media (min-width:900px){ body::after{ content:"MD ≥900px"; } }
+  @media (min-width:1200px){ body::after{ content:"LG ≥1200px"; } }
+</style>
+</head>
+<body>
+  <header>
+    <div class="container topbar">
+      <a class="brand" href="#">
+        <span class="logo" aria-hidden="true"></span>
+        <strong>ResponsiveCorp</strong>
+      </a>
+      <nav aria-label="Principal">
+        <ul>
+          <li><a href="#">Inicio</a></li>
+          <li><a href="#">Productos</a></li>
+          <li><a href="#" class="cta-large">CTA Grande</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="panel">
+      <h1>Diseño Responsive (mobile-first)</h1>
+      <p class="lead">Estilos base para móvil; a medida que hay más ancho, agregamos columnas y ajustamos tipografía.</p>
+    </section>
+
+    <section class="panel">
+      <h2>Galería adaptable</h2>
+      <div class="gallery">
+        <article class="card">
+          <div class="thumb"></div>
+          <h3>Card A</h3>
+          <p>Texto corto de ejemplo.</p>
+        </article>
+        <article class="card">
+          <div class="thumb"></div>
+          <h3>Card B</h3>
+          <p>Contenido algo más largo para ver el reflow.</p>
+        </article>
+        <article class="card">
+          <div class="thumb"></div>
+          <h3>Card C</h3>
+          <p>Otra tarjeta de prueba.</p>
+        </article>
+        <article class="card">
+          <div class="thumb"></div>
+          <h3>Card D</h3>
+          <p>Se convierte en 4 columnas en ≥1200px.</p>
+        </article>
+        <article class="card">
+          <div class="thumb"></div>
+          <h3>Card E</h3>
+          <p>En móvil es 1 columna, en SM son 2, en MD 3.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Tipografía fluida con <code>clamp()</code></h2>
+      <p>Los títulos escalan entre un mínimo/máximo, y el valor intermedio depende del viewport.</p>
+      <p class="lead">Probá redimensionar la ventana y mirá el tamaño del h1 y h2.</p>
+    </section>
+  </main>
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Formulario de Contacto</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.5;
+      padding: 2rem;
+      background: #f9fafb;
+    }
+
+    form {
+      max-width: 500px;
+      margin: auto;
+      background: #fff;
+      padding: 1.5rem;
+      border-radius: .5rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,.1);
+    }
+
+    label {
+      display: block;
+      margin-top: 1rem;
+      font-weight: bold;
+    }
+
+    input, textarea, select, button {
+      width: 100%;
+      padding: .5rem;
+      margin-top: .25rem;
+      border: 1px solid #ccc;
+      border-radius: .25rem;
+      font-size: 1rem;
+    }
+
+    button {
+      margin-top: 1.25rem;
+      background: #0b57d0;
+      color: #fff;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #0949ad;
+    }
+
+    small {
+      color: #555;
+      font-size: .9rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>Formulario de Contacto</h1>
+
+  <form action="/enviar" method="post">
+    <!-- Nombre -->
+    <label for="nombre">Nombre completo:</label>
+    <input id="nombre" name="nombre" type="text" required minlength="3" placeholder="Ej: Juan Pérez" />
+
+    <!-- Email -->
+    <label for="email">Correo electrónico:</label>
+    <input id="email" name="email" type="email" required placeholder="ejemplo@correo.com" />
+
+    <!-- Teléfono -->
+    <label for="telefono">Teléfono:</label>
+    <input id="telefono" name="telefono" type="tel" pattern="[0-9]{10}" placeholder="Ej: 1122334455" />
+    <small>(Debe tener 10 dígitos numéricos)</small>
+
+    <!-- Motivo de contacto -->
+    <label for="motivo">Motivo:</label>
+    <select id="motivo" name="motivo" required>
+      <option value="">Seleccione una opción</option>
+      <option value="consulta">Consulta</option>
+      <option value="soporte">Soporte</option>
+      <option value="otros">Otros</option>
+    </select>
+
+    <!-- Mensaje -->
+    <label for="mensaje">Mensaje:</label>
+    <textarea id="mensaje" name="mensaje" rows="5" required minlength="10" placeholder="Escriba su mensaje aquí..."></textarea>
+
+    <!-- Botón -->
+    <button type="submit">Enviar</button>
+  </form>
+</body>
+</html>

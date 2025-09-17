@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sitio de Noticias — Demostración Semántica</title>
+  <meta name="description" content="Ejemplo de estructura semántica con header, nav, main, section, article, aside y footer." />
+
+  <!-- Estilos mínimos para que se vea ordenado (el foco está en la semántica) -->
+  <style>
+    /* Reset y base */
+    *, *::before, *::after { box-sizing: border-box; }
+    body { margin: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; line-height: 1.5; color: #222; }
+    img { max-width: 100%; height: auto; }
+    a { color: #0b57d0; }
+    :focus { outline: 2px solid #0b57d0; outline-offset: 2px; }
+
+    /* Link para saltar al contenido: visible al enfocar con Tab */
+    .skip-link {
+      position: absolute; left: -999px; top: 0; padding: .5rem .75rem; background: #0b57d0; color: #fff; border-radius: .25rem;
+    }
+    .skip-link:focus { left: .5rem; top: .5rem; }
+
+    /* Layout general */
+    header { border-bottom: 1px solid #e5e7eb; background: #fff; position: sticky; top: 0; z-index: 10; }
+    .container { width: min(1100px, 92%); margin-inline: auto; }
+    .topbar { display: flex; align-items: center; justify-content: space-between; padding: .75rem 0; gap: 1rem; }
+    .brand { display: flex; align-items: center; gap: .5rem; text-decoration: none; color: inherit; }
+    .brand img { width: 36px; height: 36px; border-radius: 8px; }
+    nav ul { list-style: none; display: flex; gap: 1rem; margin: 0; padding: 0; }
+    nav a { text-decoration: none; padding: .5rem .75rem; border-radius: .5rem; }
+    nav a:hover { background: #f3f4f6; }
+
+    main { padding-block: 1.5rem; }
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+    }
+    @media (min-width: 900px) {
+      .grid {
+        grid-template-columns: 2fr 1fr; /* contenido - aside */
+        align-items: start;
+      }
+    }
+
+    section > h2 { margin-top: 0; font-size: 1.5rem; }
+    article {
+      border: 1px solid #e5e7eb; border-radius: .75rem; padding: 1rem; background: #fff;
+    }
+    article header h3 { margin: 0 0 .25rem 0; font-size: 1.25rem; }
+    article footer { margin-top: .5rem; color: #555; font-size: .95rem; }
+
+    aside {
+      border: 1px solid #e5e7eb; border-radius: .75rem; padding: 1rem; background: #fafafa;
+    }
+    aside h2 { margin-top: 0; font-size: 1.25rem; }
+
+    footer {
+      margin-top: 2rem; border-top: 1px solid #e5e7eb; background: #fff;
+    }
+    .footer-inner { padding: 1rem 0; display: flex; flex-wrap: wrap; gap: .75rem; align-items: center; justify-content: space-between; }
+    .muted { color: #6b7280; font-size: .95rem; }
+    .links { display: flex; gap: .75rem; }
+  </style>
+</head>
+<body>
+  <!-- Accesibilidad: atajo para ir directo al contenido principal con teclado -->
+  <a class="skip-link" href="#contenido">Saltar al contenido principal</a>
+
+  <header>
+    <div class="container topbar">
+      <a class="brand" href="/" aria-label="Inicio - Sitio de Noticias">
+        <img src="https://i.pinimg.com/736x/26/91/f2/2691f2fa1a0f078f5f274edf7fea6763.jpg" alt="Logo del sitio" />
+        <strong>Sitio de Noticias</strong>
+      </a>
+
+      <!-- Nav principal (landmark semántico) -->
+      <nav aria-label="Navegación principal">
+        <ul>
+          <li><a href="#portada">Portada</a></li>
+          <li><a href="#tecnologia">Tecnología</a></li>
+          <li><a href="#deportes">Deportes</a></li>
+          <li><a href="#opinion">Opinión</a></li>
+          <li><a href="#contacto">Contacto</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenido" class="container" tabindex="-1">
+    <div class="grid">
+
+      <!-- Contenido principal -->
+      <section aria-labelledby="tit-noticias">
+        <h2 id="tit-noticias">Noticias</h2>
+
+        <!-- Artículo 1 -->
+        <article>
+          <header>
+            <h3>Nueva versión de Angular publicada</h3>
+            <p class="muted">Publicado el 27/08/2025</p>
+          </header>
+
+          <img src="https://via.placeholder.com/800x400.png?text=Angular" alt="Logo de Angular sobre fondo rojo" />
+          <p>
+            El equipo de Angular anunció nuevas mejoras de rendimiento y herramientas para desarrolladores.
+            La actualización incluye optimizaciones en el compilador y mejor soporte para formularios reactivos.
+          </p>
+
+          <footer>
+            <p>Autor: <strong>Laura Gómez</strong> · <a href="#leer-mas-angular">Leer más</a></p>
+          </footer>
+        </article>
+
+        <!-- Artículo 2 -->
+        <article>
+          <header>
+            <h3>React introduce nuevas APIs</h3>
+            <p class="muted">Publicado el 26/08/2025</p>
+          </header>
+
+          <img src="https://via.placeholder.com/800x400.png?text=React" alt="Logo de React con un átomo celeste" />
+          <p>
+            React continúa evolucionando con mejoras en el manejo de efectos y nuevas utilidades para concurrent rendering.
+            La comunidad destaca la simplificación de patrones antes complejos.
+          </p>
+
+          <footer>
+            <p>Autor: <strong>Diego Pérez</strong> · <a href="#leer-mas-react">Leer más</a></p>
+          </footer>
+        </article>
+      </section>
+
+      <!-- Contenido complementario -->
+      <aside aria-labelledby="tit-aside">
+        <h2 id="tit-aside">Artículos relacionados</h2>
+        <ul>
+          <li><a href="#tendencias-frontend">Tendencias de Frontend 2025</a></li>
+          <li><a href="#mejores-practicas-a11y">Buenas prácticas de accesibilidad</a></li>
+          <li><a href="#guia-css-grid">Guía rápida de CSS Grid</a></li>
+        </ul>
+
+        <hr />
+
+        <h2>Newsletter</h2>
+        <p>Suscribite para recibir novedades:</p>
+        <form action="#" method="post" aria-label="Formulario de suscripción">
+          <label for="email">Correo electrónico</label><br />
+          <input id="email" name="email" type="email" required placeholder="nombre@ejemplo.com" />
+          <button type="submit">Suscribirme</button>
+        </form>
+      </aside>
+
+    </div>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <p class="muted">&copy; 2025 Sitio de Noticias. Todos los derechos reservados.</p>
+      <nav aria-label="Enlaces de pie">
+        <div class="links">
+          <a href="#privacidad">Privacidad</a>
+          <a href="#terminos">Términos</a>
+          <a href="#accesibilidad">Accesibilidad</a>
+        </div>
+      </nav>
+    </div>
+  </footer>
+</body>
+</html>

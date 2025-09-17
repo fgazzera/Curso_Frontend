@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>CSS Grid — Demo</title>
+<style>
+  :root{
+    --bg:#f8fafc; --card:#fff; --border:#e5e7eb; --muted:#6b7280; --accent:#2563eb;
+  }
+  *{ box-sizing: border-box; }
+  body{ margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif; line-height:1.6; color:#111; background:var(--bg); }
+  .container{ width:min(1100px,92%); margin-inline:auto; }
+  .panel{ background:var(--card); border:1px solid var(--border); border-radius:1rem; padding:1rem 1.25rem; margin-block:1rem; }
+  .muted{ color:var(--muted); }
+
+  /* ===== 1) Galería responsiva con auto-fit + minmax ===== */
+  .gallery{
+    display:grid;
+    gap:1rem;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  }
+  .tile{
+    background:#fff; border:1px solid var(--border); border-radius:.75rem; padding:1rem;
+    display:grid; gap:.5rem;
+  }
+  .tile h3{ margin:0; }
+  .tile .thumb{
+    aspect-ratio: 16/9;
+    border-radius:.5rem; background: linear-gradient(135deg, #ddd, #f3f4f6);
+  }
+
+  /* ===== 2) Layout con grid-template-areas ===== */
+  .layout{
+    display:grid;
+    gap:1rem;
+    /* Mobile first */
+    grid-template-areas:
+      "header"
+      "nav"
+      "main"
+      "aside"
+      "footer";
+    grid-template-columns: 1fr;
+  }
+  .header{ grid-area: header; }
+  .nav   { grid-area: nav; }
+  .main  { grid-area: main; }
+  .aside { grid-area: aside; }
+  .footer{ grid-area: footer; }
+
+  .block{
+    background:#fff; border:1px solid var(--border); border-radius:.75rem; padding:1rem;
+  }
+
+  /* Desktop: redefinimos áreas (2 columnas) */
+  @media (min-width: 900px){
+    .layout{
+      grid-template-columns: 2fr 1fr; /* contenido / sidebar */
+      grid-template-areas:
+        "header header"
+        "nav    nav"
+        "main   aside"
+        "footer footer";
+    }
+  }
+
+  /* ===== 3) Alineación en Grid ===== */
+  .align-play{
+    display:grid;
+    grid-template-columns: repeat(3, 140px);
+    grid-template-rows: repeat(2, 100px);
+    gap:1rem;
+    background:#fff; border:1px solid var(--border); border-radius:.75rem; padding:1rem;
+    justify-content: center; /* centra el grid dentro del panel si sobra espacio horizontal */
+    align-content: center;   /* centra el grid si sobra vertical (no suele con altura auto) */
+    justify-items: center;   /* centro cada ítem horizontalmente dentro de su celda */
+    align-items: center;     /* centro cada ítem verticalmente dentro de su celda */
+  }
+  .cell{
+    width: 90px; height: 60px; border-radius:.5rem; border:1px solid var(--border);
+    display:grid; place-items:center; background:#eef2ff; color:#111;
+  }
+
+  /* Extra: ejemplo 12 columnas simple (utilitario) */
+  .grid-12{
+    display:grid; gap:.75rem;
+    grid-template-columns: repeat(12, 1fr);
+  }
+  .col-12{ grid-column: span 12; }
+  .col-6{ grid-column: span 6; }
+  .col-4{ grid-column: span 4; }
+  .col-3{ grid-column: span 3; }
+  .card12{ background:#fff; border:1px solid var(--border); border-radius:.75rem; padding:1rem; }
+  @media (max-width: 700px){
+    .col-6,.col-4,.col-3{ grid-column: span 12; }
+  }
+
+  /* === Demo auto-fit vs auto-fill === */
+.autofit-fill {
+  display: grid;
+  gap: 1rem;
+}
+@media (min-width: 900px){
+  .autofit-fill { grid-template-columns: 1fr 1fr; } /* dos columnas lado a lado en desktop */
+}
+
+.demo-wrap {
+  background: #fff;
+  border: 1px dashed #cbd5e1;
+  border-radius: .75rem;
+  padding: .75rem;
+}
+
+/* Las dos galerías comparten altura de filas para que se note la grilla */
+.gallery-fit, .gallery-fill {
+  display: grid;
+  gap: .75rem;
+  grid-auto-rows: 120px;
+}
+
+/* auto-FIT: colapsa columnas vacías → los items se ESTIRAN para ocupar el ancho */
+.gallery-fit {
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+}
+
+/* auto-FILL: reserva espacios “fantasma” para columnas vacías → puede quedar HUECO visible */
+.gallery-fill {
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  /* Fondo con “regla” de 160px para visualizar slots vacíos */
+  background:
+    repeating-linear-gradient(
+      to right,
+      rgba(37,99,235,.15) 0,
+      rgba(37,99,235,.15) 1px,
+      transparent 1px,
+      transparent 160px
+    );
+}
+
+/* Tarjetita simple (si ya tenés .tile, podés reutilizarla) */
+.tile {
+  background: #eef2ff;
+  border: 1px solid #e5e7eb;
+  border-radius: .5rem;
+  display: grid;
+  place-items: center;
+  font-weight: 600;
+}
+
+.note { font-size: .95rem; color: #6b7280; margin-top: .5rem; }
+</style>
+</head>
+<body>
+  <header class="container panel">
+    <h1>CSS Grid — Demo</h1>
+    <p class="muted">Galería responsiva, layout con áreas, y alineación de items y del grid.</p>
+  </header>
+
+  <main class="container">
+    <!-- 1) Galería responsiva -->
+    <section class="panel">
+      <h2>1) Galería responsiva: <code>repeat(auto-fit, minmax(220px, 1fr))</code></h2>
+      <p class="muted">Las cards se refluye automáticamente según el ancho disponible. <strong>auto-fit</strong> “colapsa” columnas vacías para que las existentes se estiren.</p>
+      <div class="gallery">
+        <article class="tile"><div class="thumb"></div><h3>Card A</h3><p>Descripción corta.</p></article>
+        <article class="tile"><div class="thumb"></div><h3>Card B</h3><p>Texto algo más largo para probar.</p></article>
+        <article class="tile"><div class="thumb"></div><h3>Card C</h3><p>Otra card.</p></article>
+        <article class="tile"><div class="thumb"></div><h3>Card D</h3><p>Contenido de ejemplo.</p></article>
+        <article class="tile"><div class="thumb"></div><h3>Card E</h3><p>Más contenido.</p></article>
+      </div>
+    </section>
+
+    <!-- 2) Layout con grid-template-areas -->
+    <section class="panel">
+      <h2>2) Layout con <code>grid-template-areas</code> (mobile → desktop)</h2>
+      <div class="layout">
+        <div class="block header"><strong>Header</strong> — logo, búsqueda, acciones.</div>
+        <nav class="block nav"><strong>Nav</strong> — enlaces principales.</nav>
+        <article class="block main"><strong>Main</strong> — contenido principal (artículos, productos...).</article>
+        <aside class="block aside"><strong>Aside</strong> — filtros, promos, info secundaria.</aside>
+        <footer class="block footer"><strong>Footer</strong> — legales, redes, contacto.</footer>
+      </div>
+      <p class="muted">Redefinimos la plantilla de áreas con media query. Misma marca-up, distinto layout.</p>
+    </section>
+
+    <!-- 3) Alineación -->
+    <section class="panel">
+      <h2>3) Alineación en Grid</h2>
+      <div class="align-play">
+        <div class="cell">A</div>
+        <div class="cell">B</div>
+        <div class="cell">C</div>
+        <div class="cell">D</div>
+        <div class="cell">E</div>
+        <div class="cell">F</div>
+      </div>
+      <p class="muted">Probá cambiar <code>justify-items</code> y <code>align-items</code> (p. ej. <code>start</code>, <code>end</code>, <code>stretch</code>) y mirá el efecto.</p>
+    </section>
+
+    <!-- Extra: Grid de 12 columnas tipo utilitario -->
+    <section class="panel">
+      <h2>Extra: Grid de 12 columnas</h2>
+      <div class="grid-12">
+        <div class="card12 col-12">col-12</div>
+        <div class="card12 col-6">col-6</div>
+        <div class="card12 col-6">col-6</div>
+        <div class="card12 col-4">col-4</div>
+        <div class="card12 col-4">col-4</div>
+        <div class="card12 col-4">col-4</div>
+        <div class="card12 col-3">col-3</div>
+        <div class="card12 col-3">col-3</div>
+        <div class="card12 col-3">col-3</div>
+        <div class="card12 col-3">col-3</div>
+      </div>
+      <p class="muted">En pantallas angostas, las columnas colapsan a 12 por el media query (100%).</p>
+    </section>
+
+    <section class="panel">
+  <h2>auto-fit vs auto-fill (comparación visual)</h2>
+  <p class="muted">Redimensioná la ventana. Con pocos ítems y mucho ancho: <strong>auto-fit</strong> colapsa columnas vacías (los ítems se estiran), mientras <strong>auto-fill</strong> mantiene “huecos invisibles”.</p>
+
+  <div class="autofit-fill">
+    <!-- auto-FIT -->
+    <div class="demo-wrap">
+      <h3>auto-fit</h3>
+      <div class="gallery-fit">
+        <div class="tile">A</div>
+        <div class="tile">B</div>
+        <div class="tile">C</div>
+      </div>
+      <p class="note">Si el contenedor da para 4+ columnas pero solo hay 3 ítems, <strong>auto-fit</strong> colapsa la columna vacía → los 3 se reparten TODO el ancho.</p>
+    </div>
+
+    <!-- auto-FILL -->
+    <div class="demo-wrap">
+      <h3>auto-fill</h3>
+      <div class="gallery-fill">
+        <div class="tile">A</div>
+        <div class="tile">B</div>
+        <div class="tile">C</div>
+      </div>
+      <p class="note">Con el mismo ancho y 3 ítems, <strong>auto-fill</strong> “reserva” el slot de la 4ª columna (mirá las líneas de fondo) → puede verse un <strong>hueco</strong> al final.</p>
+    </div>
+  </div>
+</section>
+  </main>
+</body>
+</html>

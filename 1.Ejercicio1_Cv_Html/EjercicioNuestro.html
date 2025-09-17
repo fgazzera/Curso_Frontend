@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CV + Formulario</title>
+  <meta name="description" content="Landing de portafolio accesible y responsive." />
+  <style>
+    /* ===== Estilos ===== */
+    *{ box-sizing: border-box; }
+    body{ 
+      margin:0; 
+      font-family: Arial, Helvetica, sans-serif; 
+      line-height:1.5; 
+      background:#f5f7fa; 
+      color:#222; 
+    }
+    
+    img{ 
+      max-width:100%; 
+      display:block; 
+    }
+
+    .container{ 
+      width: min(100%, 960px); 
+      margin: 0 auto; 
+      padding: 0px -1rem;
+    }
+
+    /* Encabezado y navegación simple */
+    header{ 
+      background:#ffffff; 
+      border-bottom:1px solid #e5e7eb; 
+      position: sticky; 
+      top:0; 
+    }
+
+    .topbar{ 
+      display:flex; 
+      justify-content:space-between; 
+      align-items:center; 
+      padding:12px 0; 
+    }
+
+    .brand{ 
+      font-weight:bold; 
+      font-size: 1.5rem;
+    }
+
+    nav ul{ 
+      list-style:none; 
+      padding:0; 
+      margin:0; 
+      display:flex; 
+      gap:8px; 
+    }
+
+    nav a{ 
+      text-decoration:none; 
+      color:#333; 
+      padding:6px 10px; 
+      border-radius:6px; 
+    }
+
+    nav a:hover{ 
+      background:#eef2ff; 
+    }
+
+
+    /* Sección de bienvenida */
+    .hero {
+      background: #8293ca;
+      border: 2px solid #036685;
+      border-radius: 20px;
+      padding: 16px;
+      width: 60%;
+      margin: 1.5rem auto;  
+      justify-items: center;
+    }
+    .hero h1{ 
+      margin:0 0 6px; 
+      font-size:1.5rem; 
+    }
+    .hero p{
+       margin:0; 
+       color:#374151; 
+      }
+
+    /* Layout principal (columna única en móvil) */
+    .grid{ 
+      display:grid; 
+      gap:16px; 
+      margin:16px 0 24px; 
+    }
+    
+    /* (columna única en móvil) */
+    @media(min-width: 720px){
+      .grid{ grid-template-columns: 1fr 1fr; }
+    }
+
+    /* Estilo de las tarjetas (secciones)*/
+    .card{
+      background:#fff; 
+      border:1px solid #e5e7eb; 
+      border-radius:10px; 
+      overflow:hidden;
+    }
+    
+    .card_body{ 
+      padding:12px 14px; 
+    }
+
+    .card--bg{ 
+      min-height:220px; 
+      background:url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8S0CwY41eKZ86uBJDu5oXQtBsSj1JSBXNJw&s') center/cover no-repeat; 
+      display:flex; 
+      align-items:flex-end; 
+    }
+
+    .card--bg .card_body{ 
+      background: rgba(0,0,0,.55); 
+      color:#fff; 
+    }
+
+    /* Bloque CV */
+    .perfil{ 
+      display:grid; 
+      grid-template-columns: 90px 1fr; 
+      gap:12px; 
+      align-items:center; 
+    }
+    .perfil img{ 
+      width:90px; 
+      height:90px; 
+      border-radius:8px; 
+      object-fit:cover; 
+    }
+    .pill{ 
+      display:inline-block; 
+      padding:2px 8px; 
+      border:1px solid #e5e7eb; 
+      border-radius:999px; 
+      font-size:.85rem; 
+      margin-right:6px; 
+    }
+
+    /* Formulario */
+    form{ 
+      display:grid; 
+      gap:10px; 
+    }
+
+    .field{ 
+      display:grid; 
+      gap:4px; 
+    }
+
+    label{ 
+      font-weight:600; 
+    }
+
+    input, select, textarea{ 
+      padding:8px; 
+      border:1px solid #d1d5db; 
+      border-radius:6px; 
+      font:inherit; 
+    }
+
+    textarea{ 
+      resize: vertical; 
+      min-height: 100px;
+    }
+
+    .actions{ 
+      display:flex; 
+      gap:8px; 
+      justify-content:flex-end; 
+      margin-top:4px; 
+    }
+
+    .btn{ 
+      border:1px solid #6366f1; 
+      background:#6366f1; 
+      color:#fff; 
+      padding:8px 12px; 
+      border-radius:6px; 
+      cursor:pointer; 
+    }
+
+    .btn--ghost{ 
+      background:#fff; 
+      color:#4f46e5; 
+      border-color:#4f46e5; 
+    }
+
+    .btn:hover{ 
+      filter:brightness(0.95); 
+    }
+
+    /* Pie de página */
+    footer{ 
+      color:#6b7280; 
+      font-size:.95rem; 
+      justify-content: center;
+      margin: auto;
+    }
+  </style>
+</head>
+<body>
+  <!-- Encabezado -->
+  <header>
+    <div class="container topbar">
+      <div class="brand">Ejericicio 1</div>
+      <nav aria-label="principal">
+        <ul>
+          <li><a href="#cv">CV</a></li>
+          <li><a href="#info">Info</a></li>
+          <li><a href="#contacto">Contacto</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+
+  <!-- Contenido principal: CV + Formulario -->
+  <div class="container">
+      <!-- Bienvenida / Introducción -->
+      <div class="hero">
+        <h1>¡Hola!</h1>
+        <p>Esta es una página sencilla hecha con HTML y un poco de CSS, como el ejemplo del profe.</p>
+      </div>
+    <div class="grid">
+      <!-- Columna 1: CV Básico -->
+      <section id="cv" class="card" aria-labelledby="tit-cv">
+        <div class="card_body">
+          <h2 id="tit-cv">Currículum</h2>
+          <div class="perfil" style="margin-top:8px;">
+            <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="Foto de perfil" />
+            <div>
+              <strong>Facundo Gazzera y Tomas Garbellotto</strong><br>
+              <small>Córdoba, Argentina · <a href="mailto:correo@ejemplo.com">correo@ejemplo.com</a></small>
+            </div>
+          </div>
+          <p style="margin:10px 0 6px;">Tecnologías:</p>
+          <div>
+            <span class="pill">HTML</span>
+            <span class="pill">CSS</span>
+            <span class="pill">JavaScript</span>
+          </div>
+          <h3 style="margin:14px 0 6px;">Experiencia</h3>
+          <ul>
+            <li>2021–2025 · Estudiantes de Ingenieria en Sistenas.</li>
+            <li>2025 · Desarrollo de Sistema para Gestion de Obras y Cuadrillas en Inversur.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Columna 2: Card con imagen + Info extra -->
+      <article id="info" class="card card--bg" aria-label="Información destacada con imagen de fondo">
+        <div class="card_body">
+          <h2 style="margin:0 0 6px;">Diseño de Sistema para Inversur</h2>
+          <p style="margin:0;">Para esta empresa estamos realizando nuestro trabajo final para recibirnos.</p>
+        </div>
+      </article>
+    </div>
+
+    <!-- Formulario con validaciones -->
+    <section id="contacto" class="card" aria-labelledby="tit-form">
+      <div class="card_body">
+        <h2 id="tit-form">Contacto</h2>
+        <p>Completá los campos. Los que tienen * son obligatorios.</p>
+        <form action="#">
+          <div class="field">
+            <label for="nombre">Nombre completo *</label>
+            <input id="nombre" name="nombre" type="text" required minlength="3" placeholder="Ej: Ada Lovelace">
+          </div>
+          <div class="field">
+            <label for="email">Email *</label>
+            <input id="email" name="email" type="email" required placeholder="nombre@correo.com">
+          </div>
+          <div class="field">
+            <label for="motivo">Motivo *</label>
+            <select id="motivo" name="motivo" required>
+              <option value="">Elegí una opción</option>
+              <option>Consulta</option>
+              <option>Trabajo</option>
+              <option>Otro</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="mensaje">Mensaje (mínimo 10 caracteres) *</label>
+            <textarea id="mensaje" name="mensaje" required minlength="10" placeholder="Escribí tu mensaje..."></textarea>
+          </div>
+          <div class="field">
+            <label>
+              <input type="checkbox" required> Acepto la política de privacidad *
+            </label>
+          </div>
+          <div class="actions">
+            <button class="btn btn--ghost" type="reset">Limpiar</button>
+            <button class="btn" type="submit">Enviar</button>
+          </div>
+        </form>
+      </div>
+    </section>
+  </div>
+
+  <footer class="container">
+    <p>&copy; 2025 · Primer Ejercicio Curso Frontend</p>
+  </footer>
+</body>
+</html>

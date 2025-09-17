@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Flexbox — Demo</title>
+<style>
+  :root{
+    --bg: #f8fafc;
+    --card: #fff;
+    --muted: #6b7280;
+    --primary: #2563eb;
+    --border: #e5e7eb;
+  }
+  *{ box-sizing: border-box; }
+  body{ margin:0; font-family: system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif; line-height:1.6; color:#111; background:var(--bg); }
+  .container{ width:min(1100px,92%); margin-inline:auto; }
+
+  /* Header con flex: logo izquierda, nav derecha */
+  header{
+    position: sticky; top:0; background:#fff; border-bottom:1px solid var(--border);
+  }
+  .topbar{
+    display:flex; align-items:center; justify-content:space-between; gap:1rem; padding:.75rem 0;
+  }
+  .brand{ display:flex; align-items:center; gap:.5rem; text-decoration:none; color:inherit; }
+  .brand .logo{ width:36px; height:36px; border-radius:8px; background:var(--primary); }
+  nav ul{ list-style:none; display:flex; gap:.75rem; padding:0; margin:0; }
+  nav a{ text-decoration:none; padding:.4rem .6rem; border-radius:.5rem; }
+  nav a:hover{ background:#f3f4f6; }
+
+  main{ padding-block:1.25rem; display:flex; flex-direction:column; gap:1.25rem; }
+
+  /* Cards responsivas con wrap */
+  .cards{
+    display:flex; flex-wrap:wrap; gap:1rem; /* separación entre ítems */
+  }
+  .card{
+    background:var(--card); border:1px solid var(--border); border-radius:1rem; padding:1rem;
+    display:flex; flex-direction:column; gap:.5rem;
+    /* 1) base flexible: intenta medir ~260px, 2) puede crecer y encoger */
+    flex: 1 1 260px;
+    min-width: 200px; /* seguridad en pantallas muy chicas */
+  }
+  .card h3{ margin:0; }
+  .meta{ color:var(--muted); font-size:.95rem; }
+  .btn{ align-self:flex-start; background:var(--primary); color:#fff; border:none; padding:.5rem .8rem; border-radius:.6rem; cursor:pointer; }
+
+  /* Grid informativo con flex-direction column para “igualar alturas” naturalmente */
+  .features{
+    display:flex; gap:1rem; flex-wrap:wrap;
+  }
+  .feature{
+    flex: 1 1 320px;
+    background:#fff; border:1px solid var(--border); border-radius:.75rem; padding:1rem;
+    display:flex; flex-direction:column; gap:.5rem;
+  }
+  .feature .grow{ flex:1; min-height:0; } /* permite que el contenido se adapte y empuje el botón al final */
+  .feature .foot{ display:flex; justify-content:flex-end; }
+
+  /* Form layout con flex: etiquetas a la izquierda en desktop, arriba en mobile */
+  .form{
+    background:#fff; border:1px solid var(--border); border-radius:1rem; padding:1rem; display:flex; flex-direction:column; gap:1rem;
+  }
+  .row{ display:flex; gap:1rem; flex-wrap:wrap; }
+  .field{ display:flex; gap:.5rem; align-items:center; flex:1 1 320px; }
+  .field label{ width:140px; color:var(--muted); }
+  .field input, .field select{
+    flex:1 1 auto; min-width:0; /* <- clave para permitir encogimiento */
+    padding:.45rem .6rem; border:1px solid var(--border); border-radius:.5rem;
+  }
+  .actions{ display:flex; gap:.5rem; justify-content:flex-end; }
+
+  @media (max-width: 640px){
+    .field{ flex-direction:column; align-items:stretch; }
+    .field label{ width:auto; }
+  }
+</style>
+</head>
+<body>
+  <header>
+    <div class="container topbar">
+      <a class="brand" href="#">
+        <span class="logo" aria-hidden="true"></span>
+        <strong>FlexCorp</strong>
+      </a>
+      <nav aria-label="Principal">
+        <ul>
+          <li><a href="#">Inicio</a></li>
+          <li><a href="#">Productos</a></li>
+          <li><a href="#">Precios</a></li>
+          <li><a href="#">Contacto</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section>
+      <h2>Cards responsivas con <code>flex-wrap</code> + <code>gap</code></h2>
+      <div class="cards">
+        <article class="card">
+          <h3>Producto A</h3>
+          <p class="meta">flex: <code>1 1 260px</code></p>
+          <p>Se acomodan en filas y saltan a la siguiente con <code>wrap</code>.</p>
+          <button class="btn">Ver más</button>
+        </article>
+        <article class="card">
+          <h3>Producto B</h3>
+          <p class="meta">`gap` separa sin márgenes en hijos</p>
+          <p>El contenedor define la separación.</p>
+          <button class="btn">Ver más</button>
+        </article>
+        <article class="card">
+          <h3>Producto C</h3>
+          <p class="meta">Base flexible de 260px</p>
+          <p>Crece o encoge según espacio disponible.</p>
+          <button class="btn">Ver más</button>
+        </article>
+        <article class="card">
+          <h3>Producto D</h3>
+          <p class="meta">Min-width de seguridad</p>
+          <p>Evita que se vuelvan demasiado angostas.</p>
+          <button class="btn">Ver más</button>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <h2>“Igualar alturas” con <code>flex-direction: column</code> + <code>flex:1</code></h2>
+      <div class="features">
+        <article class="feature">
+          <h3>Rápido</h3>
+          <p class="grow">El contenido ocupa el espacio disponible, empujando el botón hacia abajo.</p>
+          <div class="foot"><button class="btn">Acción</button></div>
+        </article>
+        <article class="feature">
+          <h3>Seguro</h3>
+          <p class="grow">Con <code>flex:1</code> en el contenido, todas las tarjetas alinean sus pies aunque el texto varíe un poco.</p>
+          <div class="foot"><button class="btn">Acción</button></div>
+        </article>
+        <article class="feature">
+          <h3>Flexible</h3>
+          <p class="grow">Perfecto para “columnas iguales” sin hacks.</p>
+          <div class="foot"><button class="btn">Acción</button></div>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <h2>Formulario con flex (responsive)</h2>
+      <form class="form" action="#" method="post">
+        <div class="row">
+          <div class="field">
+            <label for="nombre">Nombre</label>
+            <input id="nombre" name="nombre" type="text" placeholder="Ada Lovelace" required />
+          </div>
+          <div class="field">
+            <label for="email">Correo</label>
+            <input id="email" name="email" type="email" placeholder="ada@ejemplo.com" required />
+          </div>
+        </div>
+        <div class="row">
+          <div class="field">
+            <label for="plan">Plan</label>
+            <select id="plan" name="plan">
+              <option>Básico</option><option>Pro</option><option>Empresa</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="ciudad">Ciudad</label>
+            <input id="ciudad" name="ciudad" type="text" placeholder="Buenos Aires" />
+          </div>
+        </div>
+        <div class="actions">
+          <button class="btn" type="submit">Enviar</button>
+        </div>
+      </form>
+      <p class="meta">En mobile las etiquetas pasan arriba gracias al media query y el cambio de dirección.</p>
+    </section>
+  </main>
+</body>
+</html>

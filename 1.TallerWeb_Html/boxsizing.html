@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Demo Box Model</title>
+<style>
+  /* Reset corto + border-box recomendadísimo */
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; line-height: 1.6; background: #f8fafc; color: #111; }
+  .wrap { width: min(1000px, 92%); margin: 2rem auto; }
+
+  .panel { background: #fff; border: 1px solid #e5e7eb; border-radius: .75rem; padding: 1rem 1.25rem; margin-bottom: 1rem; }
+  .row { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; }
+
+  .box {
+    /* Valores fáciles de calcular en clase */
+    width: 300px;
+    padding: 20px;
+    border: 10px solid #60a5fa;   /* azul clarito */
+    margin: 16px;
+    background: #eef2ff;          /* lavanda */
+    color: #111;
+  }
+  .box p { margin: 0; }
+
+  /* Por defecto usamos content-box para demostrar diferencias */
+  .content-box .box { box-sizing: content-box; }
+  .border-box .box { box-sizing: border-box; }
+
+  /* Toggle puro CSS: checkbox controla la clase visual del contenedor */
+  #toggle:checked ~ .demo { outline: 2px dashed #16a34a; } /* adorno visual */
+  #toggle:checked ~ .demo .col.b { /* activar border-box en la segunda columna cuando está checkeado */
+    /* ya está border-box por clase; este bloque es solo decorativo */
+  }
+
+  .legend {
+    font-size: .95rem; color: #374151; background: #f3f4f6; padding: .5rem .75rem; border-radius: .5rem;
+  }
+
+  /* Colapso de márgenes: ejemplo */
+  .collapse-playground { margin-top: 24px; display: grid; gap: 1rem; }
+  .parent {
+    background: #fff; border: 1px solid #e5e7eb; border-radius: .5rem; padding: 0; /* sin padding → posible colapso */
+  }
+  .parent .child { margin: 24px 0; background: #e0f2fe; padding: .5rem; }
+  .parent.fixed { padding-top: 1px; } /* rompe el colapso al agregar padding */
+  .note { font-size: .95rem; color: #6b7280; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Box Model: content-box vs border-box + colapso de márgenes</h1>
+
+    <div class="panel">
+      <label>
+        <input id="toggle" type="checkbox" />
+        <strong>Marcar para resaltar la demo</strong> (no cambia estilos, solo marca el bloque)
+      </label>
+      <p class="legend">
+        Cada caja tiene <code>width: 300px</code>, <code>padding: 20px</code>, <code>border: 10px</code>, <code>margin: 16px</code>.
+        <br />
+        🔢 <em>Calculá el ancho total real</em>:
+        <br />
+        <strong>content-box</strong> → 300 + 20 + 20 + 10 + 10 = <u>360 px</u> (sin contar márgenes)
+        <br />
+        <strong>border-box</strong> → <u>300 px</u> (el width ya incluye padding y border)
+      </p>
+    </div>
+
+    <div class="panel demo">
+      <h2>Comparativa</h2>
+      <div class="row">
+        <div class="col a content-box">
+          <h3>Content-box (por defecto)</h3>
+          <div class="box">
+            <p><strong>Total caja sin márgenes:</strong> 360 px de ancho.</p>
+            <p>El <code>width</code> define solo el contenido.</p>
+          </div>
+        </div>
+        <div class="col b border-box">
+          <h3>Border-box (recomendado)</h3>
+          <div class="box">
+            <p><strong>Total caja sin márgenes:</strong> 300 px de ancho.</p>
+            <p>El <code>width</code> incluye padding y border.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2>Colapso de márgenes</h2>
+      <div class="collapse-playground">
+        <div class="parent">
+          <div class="child">Hijo con <code>margin-top: 24px</code> y <code>margin-bottom: 24px</code></div>
+          <p class="note">Aquí el margen superior del hijo puede “subir” y parecer margen del padre.</p>
+        </div>
+        <div class="parent fixed">
+          <div class="child">Agregamos <code>padding-top: 1px</code> al padre → ya NO colapsa.</div>
+          <p class="note">Cualquier padding o border del padre evita el colapso.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2>Ejercicios rápidos (para resolver con los alumnos)</h2>
+      <ol>
+        <li>Cambiá <code>padding</code> a <code>40px</code> en ambas cajas. ¿Cuál es el nuevo ancho total en content-box? ¿Y en border-box?</li>
+        <li>Agregá <code>outline: 4px solid orange;</code> a la caja. ¿El tamaño total cambia? Explicá por qué.</li>
+        <li>Convertí las cajas en ítems flex: al contenedor <code>.row</code> agregá <code>display:flex</code> y quitá <code>grid</code>. ¿Observás colapso de márgenes?</li>
+      </ol>
+    </div>
+  </div>
+</body>
+</html>

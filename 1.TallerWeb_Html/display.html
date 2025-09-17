@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Display & Position — Demo</title>
+<style>
+  :root{
+    --primary: hsl(210 90% 55%);
+    --muted: hsl(222 10% 45%);
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; line-height: 1.6; color: #111; background: #f8fafc; }
+  .container { width: min(1100px, 92%); margin: 2rem auto; display: grid; gap: 1rem; }
+  .panel { background: #fff; border: 1px solid #e5e7eb; border-radius: 1rem; padding: 1rem 1.25rem; }
+  .row { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; }
+  .box { background: #eef2ff; border: 2px solid #c7d2fe; border-radius: .75rem; padding: .75rem; }
+
+  /* ---- DISPLAY ---- */
+  .inline-demo span { background: #d1fae5; border: 1px solid #a7f3d0; padding: .25rem .5rem; }
+  .inline-block-demo .chip { display: inline-block; background: #fff; border: 2px solid currentColor; color: var(--primary); border-radius: 999px; padding: .25rem .75rem; margin: .25rem; }
+  .flex-demo { display: flex; gap: .5rem; }
+  .flex-demo .item { background: #fff; border: 1px solid #e5e7eb; padding: .5rem .75rem; border-radius: .5rem; }
+  .grid-demo { display: grid; grid-template-columns: repeat(3, 1fr); gap: .5rem; }
+  .grid-demo .cell { background: #fff; border: 1px solid #e5e7eb; padding: .75rem; border-radius: .5rem; text-align: center; }
+
+  /* ---- POSITION ---- */
+  .relative { position: relative; background: #fff; border: 1px dashed #cbd5e1; padding: 1rem; border-radius: .75rem; }
+  .badge-abs {
+    position: absolute; top: .5rem; right: .5rem;
+    background: var(--primary); color: #fff; padding: .25rem .5rem; border-radius: .5rem; font-size: .9rem;
+  }
+  .fixed-btn {
+    position: fixed; right: 1rem; bottom: 1rem;
+    background: #111; color: #fff; padding: .6rem .85rem; border-radius: .75rem; border: 2px solid #fff;
+  }
+  .sticky-header {
+    position: sticky; top: 0; z-index: 10;
+    background: #fff; border-bottom: 2px solid var(--primary); padding: .5rem .75rem; font-weight: 700;
+  }
+  .tall { height: 900px; background: linear-gradient(#fff, #eef2ff); border-radius: .75rem; padding: .75rem; }
+
+  /* Z-INDEX: dos tarjetas solapadas */
+  .stack-area { position: relative; height: 200px; background: #fff; border: 1px dashed #cbd5e1; border-radius: .75rem; }
+  .card {
+    position: absolute; width: 180px; height: 120px; border-radius: .75rem; padding: .5rem;
+    background: #fff; border: 2px solid #e5e7eb; box-shadow: 0 4px 12px rgba(0,0,0,.08);
+  }
+  .card.a { top: 30px; left: 30px; z-index: 1; }
+  .card.b { top: 60px; left: 80px; z-index: 2; }
+  .card.c { top: 45px; left: 130px; z-index: 3; transform: translateZ(0); } /* nuevo stacking context posible */
+
+  .muted { color: var(--muted); font-size: .95rem; }
+</style>
+</head>
+<body>
+  <!-- Botón FIXED (permanece mientras scrolleás) -->
+  <a class="fixed-btn" href="#top" aria-label="Volver arriba">↑ Top</a>
+
+  <main id="top" class="container">
+    <section class="panel">
+      <h1>Display & Position — Demo</h1>
+      <p class="muted">Mostramos <code>block</code>, <code>inline</code>, <code>inline-block</code>, <code>flex</code>, <code>grid</code> y posiciones <code>relative/absolute/fixed/sticky</code> con <code>z-index</code>.</p>
+    </section>
+
+    <!-- DISPLAY -->
+    <section class="panel">
+      <h2>Display</h2>
+      <div class="row">
+        <div class="box">
+          <h3>inline</h3>
+          <p class="inline-demo">
+            Texto con <span>span 1</span> <span>span 2</span> <span>span 3</span> en la misma línea.
+          </p>
+          <p class="muted">Los inline no respetan <code>width/height</code>.</p>
+        </div>
+        <div class="box">
+          <h3>inline-block</h3>
+          <p class="inline-block-demo">
+            <span class="chip">Chip</span>
+            <span class="chip">Etiqueta</span>
+            <span class="chip">Píldora</span>
+          </p>
+          <p class="muted">Fluyen en línea pero respetan <code>width/height</code>.</p>
+        </div>
+        <div class="box">
+          <h3>flex</h3>
+          <div class="flex-demo">
+            <div class="item">A</div><div class="item">B</div><div class="item">C</div>
+          </div>
+          <p class="muted">Contenedor con alineación y distribución en un eje.</p>
+        </div>
+        <div class="box">
+          <h3>grid</h3>
+          <div class="grid-demo">
+            <div class="cell">1</div><div class="cell">2</div><div class="cell">3</div>
+          </div>
+          <p class="muted">Layout bidimensional de filas y columnas.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- POSITION -->
+    <section class="panel">
+      <h2>Position</h2>
+      <div class="row">
+        <div class="box relative">
+          <span class="badge-abs">ABSOLUTE</span>
+          <h3>relative + absolute</h3>
+          <p>El contenedor es <code>relative</code>; la “badge” se posiciona <code>absolute</code> respecto a él (top/right).</p>
+        </div>
+        <div class="box">
+          <h3>sticky</h3>
+          <div class="tall">
+            <div class="sticky-header">Cabecera sticky (top: 0)</div>
+            <p>Hacé scroll dentro de este bloque para ver cómo la cabecera se pega arriba.</p>
+            <p style="margin-top:700px">Fin del bloque.</p>
+          </div>
+          <p class="muted">El sticky se limita al contenedor que hace scroll.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Z-INDEX -->
+    <section class="panel">
+      <h2>Z-index & Stacking</h2>
+      <div class="stack-area">
+        <div class="card a">z-index: 1</div>
+        <div class="card b">z-index: 2</div>
+        <div class="card c">z-index: 3 (+transform)</div>
+      </div>
+      <p class="muted">Inspeccioná con DevTools y probá cambiar z-index para ver el apilamiento.</p>
+    </section>
+  </main>
+</body>
+</html>
