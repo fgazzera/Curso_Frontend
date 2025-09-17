@@ -1,52 +1,168 @@
-/* Formulario */
-form{ 
-  display:grid; 
-  gap:10px; 
+:host {
+  display: block;
+  padding: 2rem 0 3rem;
 }
 
-.field{ 
-  display:grid; 
-  gap:4px; 
+.contact-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 1.75rem;
+  border: 1px solid #e5e7eb;
+  display: grid;
+  gap: 1.75rem;
 }
 
-label{ 
-  font-weight:600; 
+.contact-card__header h2 {
+  margin: 0;
+  font-size: 1.4rem;
+  color: #1f2937;
 }
 
-input, select, textarea{ 
-  padding:8px; 
-  border:1px solid #d1d5db; 
-  border-radius:6px; 
-  font:inherit; 
+.contact-card__header p {
+  margin: 0.35rem 0 0;
+  color: #4b5563;
 }
 
-textarea{ 
-  resize: vertical; 
-  min-height: 100px;
+form {
+  display: grid;
+  gap: 1.25rem;
 }
 
-.actions{ 
-  display:flex; 
-  gap:8px; 
-  justify-content:flex-end; 
-  margin-top:4px; 
+.field {
+  display: grid;
+  gap: 0.45rem;
 }
 
-.btn{ 
-  border:1px solid #6366f1; 
-  background:#6366f1; 
-  color:#fff; 
-  padding:8px 12px; 
-  border-radius:6px; 
-  cursor:pointer; 
+.field label {
+  font-weight: 600;
+  color: #1f2937;
 }
 
-.btn--ghost{ 
-  background:#fff; 
-  color:#4f46e5; 
-  border-color:#4f46e5; 
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  padding: 0.7rem 0.85rem;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  font: inherit;
+  background: #f9fafb;
+  transition: border-color 0.2s ease;
 }
 
-.btn:hover{ 
-  filter:brightness(0.95); 
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  outline: none;
+  border-color: #6366f1;
+  background: #ffffff;
+}
+
+.field textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.field--checkbox {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.field--checkbox input[type='checkbox'] {
+  width: 18px;
+  height: 18px;
+}
+
+.field--checkbox label {
+  font-weight: 500;
+  color: #374151;
+}
+
+.field__error {
+  grid-column: 1 / -1;
+  color: #b91c1c;
+  font-size: 0.85rem;
+}
+
+input.ng-invalid.ng-touched,
+select.ng-invalid.ng-touched,
+textarea.ng-invalid.ng-touched {
+  border-color: #f87171;
+  background: #fff5f5;
+}
+
+.contact-card__feedback {
+  border-radius: 8px;
+  background: #eef2ff;
+  padding: 1rem 1.25rem;
+  color: #1f2937;
+  display: grid;
+  gap: 0.3rem;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+}
+
+.btn {
+  border: 1px solid #6366f1;
+  cursor: pointer;
+  padding: 0.6rem 1.4rem;
+  border-radius: 999px;
+  font-weight: 600;
+  background: #6366f1;
+  color: #ffffff;
+}
+
+.btn--ghost {
+  background: transparent;
+  color: #4f46e5;
+}
+
+.contact-card__preview {
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  padding: 1.25rem;
+  background: #f9fafb;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.contact-card__preview h3 {
+  margin: 0;
+  color: #1f2937;
+}
+
+.contact-card__preview ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.45rem;
+}
+
+.contact-card__preview li {
+  display: grid;
+  gap: 0.15rem;
+  color: #374151;
+}
+
+.contact-card__preview span {
+  font-weight: 600;
+  color: #1f2937;
+}
+
+@media (max-width: 640px) {
+  .contact-card {
+    padding: 1.5rem;
+  }
+
+  .form-actions {
+    flex-direction: column-reverse;
+    align-items: stretch;
+  }
 }

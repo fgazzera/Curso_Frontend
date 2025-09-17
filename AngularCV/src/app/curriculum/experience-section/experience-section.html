@@ -1,0 +1,32 @@
+<section class="section-card" aria-label="Experiencia profesional">
+  <div class="section-card__div">
+    <h2>Experiencia profesional</h2>
+    <p>Colaboraciones clave y aprendizajes de los últimos años.</p>
+  </div>
+  <ol class="timeline">
+    @for (experience of experiences; track experience.id) {
+      <li class="timeline__item">
+        <div class="timeline__head">
+          <div>
+            <h3>{{ experience.role }}</h3>
+            <p class="timeline__company">{{ experience.company }}</p>
+          </div>
+          <div class="timeline__meta">
+            <span>{{ experience.timeframe }}</span>
+            <span>{{ experience.location }}</span>
+          </div>
+        </div>
+        <ul class="timeline__achievements">
+          @for (achievement of experience.achievements; track achievement) {
+            <li>{{ achievement }}</li>
+          }
+        </ul>
+        <div class="timeline__tags" aria-label="Tecnologías utilizadas">
+          @for (tech of experience.techStack; track tech) {
+            <span class="timeline__pill">{{ tech }}</span>
+          }
+        </div>
+      </li>
+    }
+  </ol>
+</section>

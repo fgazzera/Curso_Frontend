@@ -1,0 +1,24 @@
+<div class="profile-card">
+  <div class="profile-card__image">
+    <img [src]="profile.avatar" [alt]="'Foto de ' + profile.name" />
+  </div>
+  <div class="profile-card__body">
+    <p class="profile-card__role">{{ profile.role }}</p>
+    <h1 class="profile-card__name">{{ profile.name }}</h1>
+    <p class="profile-card__meta">
+      {{ profile.location }} · {{ profile.availability }}
+    </p>
+    <p class="profile-card__headline">{{ profile.headline }}</p>
+    <p class="profile-card__about">{{ profile.about }}</p>
+    @if (profile.lookingFor) {
+      <p class="profile-card__looking">Disponible para: <strong>{{ profile.lookingFor }}</strong></p>
+    }
+    <ul class="profile-card__links" aria-label="Medios de contacto">
+      @for (link of contactLinks; track link.url) {
+        <li>
+          <a [href]="link.url" target="_blank" rel="noopener noreferrer">{{ link.label }}</a>
+        </li>
+      }
+    </ul>
+  </div>
+</div>

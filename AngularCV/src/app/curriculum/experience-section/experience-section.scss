@@ -1,0 +1,101 @@
+.section-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 2.25rem 1.5rem 1.5rem;
+  border: 1px solid #e5e7eb;
+  display: grid;
+  gap: 1.25rem;
+}
+
+.section-card__div h2 {
+  margin: 0;
+  font-size: 1.25rem;
+  color: #1f2937;
+}
+
+.section-card__div p {
+  margin: 0.4rem 0 0;
+  color: #4b5563;
+}
+
+.timeline {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 1.25rem;
+}
+
+.timeline__item {
+  border-left: 3px solid #6366f1;
+  padding-left: 1rem;
+  position: relative;
+}
+
+.timeline__head {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.timeline__head h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #1f2937;
+}
+
+.timeline__company {
+  margin: 0.35rem 0 0;
+  font-weight: 500;
+  color: #6b7280;
+}
+
+.timeline__meta {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  color: #475569;
+  font-size: 0.9rem;
+}
+
+.timeline__remote {
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  background: #e0f2fe;
+  color: #0369a1;
+  font-weight: 600;
+}
+
+.timeline__achievements {
+  margin: 0.75rem 0 0;
+  padding-left: 1rem;
+  color: #374151;
+  display: grid;
+  gap: 0.35rem;
+}
+
+.timeline__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.75rem;
+}
+
+.timeline__pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.3rem 0.7rem;
+  border-radius: 999px;
+  background: #eef2ff;
+  color: #4338ca;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+@media (max-width: 600px) {
+  .timeline__head {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

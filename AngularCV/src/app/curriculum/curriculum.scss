@@ -1,24 +1,20 @@
-  
-/* CV */
-.perfil{ 
-  display:grid; 
-  grid-template-columns: 90px 1fr; 
-  gap:12px; 
-  align-items:center; 
+.curriculum {
+  padding: 2rem 0 3rem;
+  background: #f5f5f5;
 }
 
-.perfil img{ 
-  width:90px; 
-  height:90px; 
-  border-radius:8px; 
-  object-fit:cover; 
+.curriculum .container {
+  display: grid;
+  gap: 1.75rem;
 }
 
-.pill{ 
-  display:inline-block; 
-  padding:2px 8px; 
-  border:1px solid #e5e7eb; 
-  border-radius:999px; 
-  font-size:.85rem; 
-  margin-right:6px; 
+.curriculum__layout {
+  display: grid;
+  gap: 1.5rem;
+}
+
+@media (min-width: 1024px) {
+  .curriculum__layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }

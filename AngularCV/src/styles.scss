@@ -1,122 +1,107 @@
-/* ===== Estilos Globales ===== */
-*{ box-sizing: border-box; }
-body{ 
-  margin:0; 
-  font-family: Arial, Helvetica, sans-serif; 
-  line-height:1.5; 
-  background:#f5f7fa; 
-  color:#222; 
+:root {
+  --app-header-offset: 72px;
+  scroll-padding-top: var(--app-header-offset);
+  scroll-behavior: smooth;
 }
 
-img{ 
-  max-width:100%; 
-  display:block; 
+* {
+  box-sizing: border-box;
 }
 
-.container{ 
-  width: min(100%, 960px); 
-  margin: 0 auto; 
-  padding: 0px -1rem;
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  line-height: 1.55;
+  background: #eef2ff;
+  color: #0f172a;
 }
 
-/* Encabezado y navegación simple */
-header{ 
-  background:#ffffff; 
-  border-bottom:1px solid #e5e7eb; 
-  position: sticky; 
-  top:0; 
+a {
+  color: inherit;
 }
 
-.topbar{ 
-  display:flex; 
-  justify-content:space-between; 
-  align-items:center; 
-  padding:12px 0; 
+a:hover {
+  color: inherit;
 }
 
-.brand{ 
-  font-weight:bold; 
-  font-size: 1.5rem;
+img {
+  max-width: 100%;
+  display: block;
 }
 
-nav ul{ 
-  list-style:none; 
-  padding:0; 
-  margin:0; 
-  display:flex; 
-  gap:8px; 
+.container {
+  width: min(100%, 1120px);
+  margin: 0 auto;
+  padding: 0 1.75rem;
 }
 
-nav a{ 
-  text-decoration:none; 
-  color:#333; 
-  padding:6px 10px; 
-  border-radius:6px; 
+header {
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(226, 232, 240, 0.9);
+  position: sticky;
+  top: 0;
+  z-index: 20;
 }
 
-nav a:hover{ 
-  background:#eef2ff; 
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.85rem 0;
+  gap: 1rem;
 }
 
-/* Sección de bienvenida */
-.hero {
-  background: #8293ca;
-  border: 2px solid #036685;
-  border-radius: 20px;
-  padding: 16px;
-  width: 60%;
-  margin: 1.5rem auto;  
-  justify-items: center;
-}
-.hero h1{ 
-  margin:0 0 6px; 
-  font-size:1.5rem; 
-}
-.hero p{
-   margin:0; 
-   color:#374151; 
+.brand {
+  font-weight: 700;
+  font-size: 1.35rem;
+  color: #1f2937;
 }
 
-/* Layout principal (columna única en móvil) */
-.grid{ 
-  display:grid; 
-  gap:16px; 
-  margin:16px 0 24px; 
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  gap: 0.5rem;
 }
 
-/* (columna única en móvil) */
-@media(min-width: 720px){
-  .grid{ grid-template-columns: 1fr 1fr; }
+nav a {
+  text-decoration: none;
+  color: #4338ca;
+  font-weight: 600;
+  padding: 0.45rem 0.95rem;
+  border-radius: 999px;
+  transition: all 0.2s ease;
 }
 
-/* Estilo de las tarjetas (secciones)*/
-.card{
-  background:#fff; 
-  border:1px solid #e5e7eb; 
-  border-radius:10px; 
-  overflow:hidden;
+nav a:hover,
+nav a:focus-visible {
+  background: #eef2ff;
+  color: #312e81;
 }
 
-.card_body{ 
-  padding:12px 14px; 
+.profile-card,
+.section-card,
+.contact-card {
+  scroll-margin-top: var(--app-header-offset);
 }
 
-.card--bg{ 
-  min-height:220px; 
-  background:url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8S0CwY41eKZ86uBJDu5oXQtBsSj1JSBXNJw&s') center/cover no-repeat; 
-  display:flex; 
-  align-items:flex-end; 
+footer {
+  color: #64748b;
+  font-size: 0.95rem;
+  text-align: center;
+  padding: 2rem;
 }
 
-.card--bg .card_body{ 
-  background: rgba(0,0,0,.55); 
-  color:#fff; 
-}
+@media (max-width: 640px) {
+  .topbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 
-/* Pie de página */
-footer{ 
-  color:#6b7280; 
-  font-size:.95rem; 
-  justify-content: center;
-  margin: auto;
+  nav ul {
+    width: 100%;
+    justify-content: space-between;
+  }
 }

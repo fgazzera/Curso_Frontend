@@ -1,0 +1,36 @@
+<section class="section-card" aria-label="Habilidades y herramientas">
+  <div class="section-card__div">
+    <h2>Habilidades y herramientas</h2>
+    <p>Stack técnico y enfoque centrado en las personas.</p>
+  </div>
+  <div class="skill-grid">
+    @for (group of skills; track group.id) {
+      <article class="skill-group">
+        <header>
+          <h3>{{ group.title }}</h3>
+          @if (group.highlight) {
+            <span class="skill-group__highlight">{{ group.highlight }}</span>
+          }
+        </header>
+        <ul>
+          @for (item of group.items; track item) {
+            <li>{{ item }}</li>
+          }
+        </ul>
+      </article>
+    }
+  </div>
+  @if (languages.length) {
+    <section class="languages" aria-label="Idiomas">
+      <h3>Idiomas</h3>
+      <ul>
+        @for (language of languages; track language.id) {
+          <li>
+            <span>{{ language.language }}</span>
+            <small>{{ language.level }}</small>
+          </li>
+        }
+      </ul>
+    </section>
+  }
+</section>

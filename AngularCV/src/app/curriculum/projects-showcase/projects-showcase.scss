@@ -1,0 +1,80 @@
+.section-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 2.25rem 1.5rem 1.5rem;
+  border: 1px solid #e5e7eb;
+  display: grid;
+  gap: 1.25rem;
+}
+
+.section-card__div h2 {
+  margin: 0;
+  font-size: 1.25rem;
+  color: #1f2937;
+}
+
+.section-card__div p {
+  margin: 0.4rem 0 0;
+  color: #4b5563;
+}
+
+.projects {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.project {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  gap: 1rem;
+  background: #f9fafb;
+  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+  overflow: hidden;
+}
+
+.project__cover {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.project__body {
+  padding: 1.25rem 1.25rem 1.5rem;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.project__heading h3 {
+  margin: 0;
+  color: #1f2937;
+  font-size: 1.1rem;
+}
+
+.project__heading p {
+  margin: 0.25rem 0 0;
+  color: #6b7280;
+}
+
+.project__summary p {
+  margin: 0 0 0.35rem;
+  color: #374151;
+}
+
+.project__contributions {
+  margin: 0;
+  padding-left: 1.15rem;
+  color: #4b5563;
+  display: grid;
+  gap: 0.4rem;
+}
+
+@media (max-width: 860px) {
+  .project {
+    grid-template-columns: 1fr;
+  }
+
+  .project__cover {
+    height: 200px;
+  }
+}

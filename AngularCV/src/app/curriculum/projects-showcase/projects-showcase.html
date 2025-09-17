@@ -1,0 +1,29 @@
+<section class="section-card" aria-label="Proyectos destacados">
+  <div class="section-card__div">
+    <h2>Proyectos destacados</h2>
+    <p>Trabajos recientes donde lideramos diseño y desarrollo end-to-end.</p>
+  </div>
+  <div class="projects">
+    @for (project of projects; track project.id) {
+      <article class="project">
+        <img class="project__cover" [src]="project.coverImage" [alt]="project.title" />
+        <div class="project__body">
+          <div class="project__heading">
+            <h3>{{ project.title }}</h3>
+            <p>{{ project.client }}</p>
+          </div>
+          <div class="project__summary">
+            @for (line of project.summary; track line) {
+              <p>{{ line }}</p>
+            }
+          </div>
+          <ul class="project__contributions">
+            @for (contribution of project.contributions; track contribution) {
+              <li>{{ contribution }}</li>
+            }
+          </ul>
+        </div>
+      </article>
+    }
+  </div>
+</section>
