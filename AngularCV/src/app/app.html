@@ -4,7 +4,7 @@
     <nav aria-label="principal">
       <ul class="tags">
         <li class="tag"><a routerLink="/curriculum">Curriculum</a></li>
-        <li class="tag"><a routerLink="/form">Contacto</a></li>
+        <li class="tag"><a routerLink="/form" [hidden]="!login.isLoggedIn()">Contacto</a></li>
       </ul>
       <button (click)="doLogin()">
         {{ login.isLoggedIn() ? 'Logout' : 'Login' }}
