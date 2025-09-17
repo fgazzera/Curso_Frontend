@@ -1,0 +1,20 @@
+<div class="container">
+    <div class="title">Galeria</div>
+    <div class="items-container">
+        @for (item of artService.artworks(); track $index) {
+            <app-art-item [inputValue]="item" />
+        }
+    </div>
+    <div class="buttons-container">
+        <button class="simple-button" 
+        [disabled]="artService.isLoading() || artService.page() === 1" (click)="artService.prevPage()">
+            Previous Page
+        </button>
+        <div class="page-number">{{artService.page()}}</div>
+        <button class="simple-button" 
+        [disabled]="artService.isLoading() || artService.page() === artService.maxPages()" 
+        (click)="artService.nextPage()">
+            Next Page
+        </button>
+    </div>
+</div>

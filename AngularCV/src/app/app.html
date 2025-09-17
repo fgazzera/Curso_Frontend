@@ -5,6 +5,7 @@
       <ul class="tags">
         <li class="tag"><a routerLink="/">Curriculum</a></li>
         <li class="tag"><a routerLink="/form" [hidden]="!login.isLoggedIn()">Contacto</a></li>
+        <li class="tag"><a routerLink="/galeria" [hidden]="!login.isLoggedIn()">Galeria</a></li>
         <li><button class="login_button" (click)="doLogin()"> {{ login.isLoggedIn() ? 'Logout' : 'Login' }} </button></li>
       </ul>
     </nav>

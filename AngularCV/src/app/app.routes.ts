@@ -1,9 +1,11 @@
 import { Routes } from '@angular/router';
-import {Form} from './form/form'; 
-import {Curriculum} from './curriculum/curriculum';
+import { Form } from './form/form'; 
+import { Curriculum } from './curriculum/curriculum';
+import { Galeria } from './galeria/galeria';
 import { authGuard } from './auth.guard';
 
 export const routes: Routes = [
     { path: '', component: Curriculum },
-    { path: 'form', component: Form, canActivate: [authGuard] }
+    { path: 'form', component: Form, canActivate: [authGuard] },
+    { path: 'galeria', component: Galeria, canActivate: [authGuard] }
 ];
