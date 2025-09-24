@@ -1,28 +1,68 @@
+:host { display: block; }
+
+/* Tarjeta */
 .card-container {
-    padding: 8px 12px;
-    width: 220px;
-    height: 360px;
-    background-color: white;
-    color: black;
-    border-radius: 24px;
-    border: none;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-    overflow: hidden;
+  width: 100%;
+  max-width: 360px;   /* permite 3 por fila cómodas */
+  min-width: 280px;   /* consistente con grid */
+  background: #ffffff;
+  color: #0f172a;
+  border: 1px solid #e6eaf0;
+  border-radius: 14px;
+  padding: 1rem 1.1rem;
+  box-shadow: 0 10px 26px rgba(15, 23, 42, 0.10);
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: 0.5rem;
+  transition: transform .18s ease, box-shadow .2s ease, border-color .2s ease;
 }
 
-.big-card {
-    width: 320px;
-    height: 380px;
+.card-container:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(15, 23, 42, 0.14);
+  border-color: #dbe3ef;
 }
 
+/* Variante grande (si el padre la aplica) */
+.big-card { max-width: 420px; }
+
+/* Título */
 .title {
-    font-size: 14px;
-    font-weight: bold;
-    margin-bottom: 12px;
+  font-size: 1rem;
+  font-weight: 800;
+  color: #1f2937;
+  line-height: 1.35;
+  letter-spacing: .2px;
+  margin: 0 0 .25rem 0;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* hasta 2 líneas */
+  -webkit-box-orient: vertical;
 }
 
+/* Descripción */
 .description {
-    font-size: 12px;
-    text-align: left;
-    white-space: pre-line;
+  font-size: 0.93rem;
+  color: #374151;
+  line-height: 1.55;
+  text-align: left;
+  white-space: pre-line;
+  overflow: auto;            /* scroll si se excede */
+  padding-right: 0.25rem;    /* margen para scrollbar */
+  max-height: 9.5rem;        /* mantiene tarjetas parejas */
+}
+
+/* Scrollbar sutil */
+.description::-webkit-scrollbar { width: 8px; }
+.description::-webkit-scrollbar-thumb {
+  background: #e5e7eb;
+  border-radius: 999px;
+}
+.description::-webkit-scrollbar-thumb:hover { background: #d1d5db; }
+
+/* Mobile */
+@media (max-width: 640px) {
+  .card-container { border-radius: 12px; padding: 0.9rem 1rem; }
+  .title { font-size: 0.98rem; }
+  .description { font-size: 0.92rem; max-height: none; }
 }
