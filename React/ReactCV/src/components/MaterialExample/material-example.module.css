@@ -1,0 +1,21 @@
+.container {
+  background: #f3f4f6;
+  padding: 1.5rem;
+  border-radius: 1rem;
+}
+
+.cardsGrid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+.cardWrapper {
+  height: 100%;
+}
+
+.noResults {
+  text-align: center;
+  color: #6b7280;
+  padding: 1rem 0;
+}

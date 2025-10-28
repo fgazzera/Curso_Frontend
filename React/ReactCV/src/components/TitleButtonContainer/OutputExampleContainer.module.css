@@ -1,0 +1,10 @@
+.note {
+  font-size: 16px;
+}
+
+.container {
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 8px;
+  margin: 10px;
+}

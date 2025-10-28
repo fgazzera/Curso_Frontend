@@ -1,0 +1,76 @@
+.projectsCard {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 2.25rem 1.5rem 1.5rem;
+  border: 1px solid #e5e7eb;
+  display: grid;
+  gap: 1.25rem;
+}
+
+.projectsGrid {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.project {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  gap: 1rem;
+  background: #f9fafb;
+  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+}
+
+.cover {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.body {
+  padding: 1.25rem 1.25rem 1.5rem;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.heading h3 {
+  margin: 0;
+  color: #1f2937;
+  font-size: 1.1rem;
+}
+
+.heading p {
+  margin: 0.25rem 0 0;
+  color: #6b7280;
+}
+
+.summary p {
+  margin: 0 0 0.35rem;
+  color: #374151;
+}
+
+.contributions {
+  margin: 0;
+  padding-left: 1.15rem;
+  color: #4b5563;
+  display: grid;
+  gap: 0.4rem;
+}
+
+.body small {
+  color: #6b7280;
+  font-weight: 600;
+}
+
+@media (max-width: 860px) {
+  .project {
+    grid-template-columns: 1fr;
+  }
+
+  .cover {
+    height: 200px;
+  }
+}

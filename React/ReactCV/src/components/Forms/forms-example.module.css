@@ -1,0 +1,23 @@
+.container {
+  border: 1px solid #ccc;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  border-radius: 8px;
+  margin: 10px;
+  gap: 12px;
+  align-items: center;
+}
+
+.formItemContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    justify-content: flex-start;
+}
+
+.dateRangeContainer {
+    display: grid;
+    grid-template-rows: min-content;
+    grid-template-columns: 1fr 1fr;
+}

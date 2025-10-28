@@ -1,0 +1,49 @@
+.MainContainer {
+    background-color: #b0b0b8;
+    height: 100vh;
+    width: 250px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    border-right: solid 1px #4b4b52;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    overflow-y: hidden;
+    scrollbar-width: thin;
+}
+
+.Navbar {
+    display: flex;
+    flex-direction: column;
+    width: 250px;
+}
+
+.BarItem {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    width: 250px;
+    border-bottom: #4b4b52 1px solid;
+    display: flex;
+    justify-content: center;
+    padding: 12px 0px;
+}
+
+.BarItem:hover {
+    background-color: #4b4b52;
+    color: white;
+    cursor: pointer;
+}
+
+.OutletContainer {
+    grid-column: 2 / 3;
+    padding: 16px;
+}
+
+.Selected {
+    background-color: #4b4b52;
+    color: white;
+    cursor: pointer;
+}

@@ -1,0 +1,11 @@
+.userItem {
+    display: flex;
+    flex-direction: column;
+}
+.userName {
+    font-weight: bold;
+}
+.userEmail {
+    font-style: italic;
+    color: gray;
+}
