@@ -5,6 +5,7 @@ import PublicRoute from './components/Layout/PublicRoute'
 import Login from './components/Login/Login'
 import PrivateRoute from './components/Layout/PrivateRoute'
 import CurriculumPage from './features/cv/CurriculumPage'
+import { ContactForm } from './features/cv/ContactForm'
 
 function App() {
   return (
@@ -19,7 +20,7 @@ function App() {
         {/* Private */}
         <Route element={<PrivateRoute />}>
           <Route path="/" element={<CurriculumPage />} />
-          <Route path="/cv" element={<CurriculumPage />} />
+          <Route path="/form" element={<ContactForm />} />
         </Route>
 
         {/* Fallback */}
