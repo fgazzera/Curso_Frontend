@@ -135,9 +135,9 @@ const projects: Project[] = [
       'Estrategia de datos que integra históricos con mapas de calor para priorizar mantenimiento.',
     ],
     coverImage:
-      'https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&fit=crop&w=800&q=80',
+      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8S0CwY41eKZ86uBJDu5oXQtBsSj1JSBXNJw&s',
     repository: 'https://github.com',
-    liveDemo: 'https://inversur-demo.equipo.dev',
+    liveDemo: 'https://delightful-beach-07a53140f.6.azurestaticapps.net/',
   },
   {
     id: 'proj-community',
@@ -153,27 +153,10 @@ const projects: Project[] = [
       'Sesiones de formación con agentes municipales para asegurar adopción.',
     ],
     coverImage:
-      'https://images.unsplash.com/photo-1529429617124-aee711a0cc14?auto=format&fit=crop&w=800&q=80',
+      'https://yt3.googleusercontent.com/d3zWOdr_ZFVYHkNSVCVMqbvlR3P6_pz0YoIiNvczN3meujAtpBsySnw9K3n0imPU1CzP42J9ZA=s900-c-k-c0x00ffffff-no-rj',
     repository: 'https://github.com',
-    liveDemo: 'https://smartcity-demo.equipo.dev',
-  },
-  {
-    id: 'proj-lab',
-    title: 'Portal de Mentoreo y Experimentos',
-    client: 'Laboratorio FRC',
-    summary: [
-      'Portal que centraliza experimentos, bitácoras y aprendizajes del laboratorio para reutilización entre cohortes.',
-      'Incluye tablero de métricas y automatizaciones para seguimiento de experimentos.',
-    ],
-    contributions: [
-      'Definición de taxonomía y sistema de etiquetado para facilitar la búsqueda.',
-      'Implementación de roles y permisos con autenticación única institucional.',
-      'Automatización de reportes semanales y visualizaciones interactivas.',
-    ],
-    coverImage:
-      'https://images.unsplash.com/photo-1545239351-1141bd82e8a6?auto=format&fit=crop&w=800&q=80',
-    repository: 'https://github.com',
-  },
+    liveDemo: 'https://github.com',
+  }
 ]
 
 const skillGroups: SkillGroup[] = [
@@ -458,44 +441,60 @@ function CvPage() {
           <Stack spacing={3}>
             {projects.map((project) => (
               <Box key={project.id}>
-                <Typography variant="subtitle1" fontWeight={600}>
-                  {project.title} · {project.client}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  {project.summary.join(' ')}
-                </Typography>
-                <List sx={{ listStyleType: 'disc', pl: 3, mt: 1 }} dense>
-                  {project.contributions.map((item) => (
-                    <ListItem key={item} sx={{ display: 'list-item', py: 0.5 }}>
-                      <ListItemText
-                        primaryTypographyProps={{ variant: 'body2' }}
-                        primary={item}
-                      />
-                    </ListItem>
-                  ))}
-                </List>
-                <Stack direction="row" spacing={1.5} mt={1.5}>
-                  {project.repository ? (
-                    <Button
-                      href={project.repository}
-                      target="_blank"
-                      rel="noreferrer"
-                      size="small"
-                    >
-                      Repositorio
-                    </Button>
-                  ) : null}
-                  {project.liveDemo ? (
-                    <Button
-                      href={project.liveDemo}
-                      target="_blank"
-                      rel="noreferrer"
-                      size="small"
-                      variant="outlined"
-                    >
-                      Demo
-                    </Button>
-                  ) : null}
+                <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
+                  <Box
+                    component="img"
+                    src={project.coverImage}
+                    alt={`Imagen de proyecto ${project.title}`}
+                    sx={{
+                      width: { xs: '100%', sm: 200 },
+                      height: { xs: 160, sm: 140 },
+                      borderRadius: 2,
+                      objectFit: 'cover',
+                      flexShrink: 0,
+                    }}
+                  />
+                  <Box flex={1}>
+                    <Typography variant="subtitle1" fontWeight={600}>
+                      {project.title} · {project.client}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      {project.summary.join(' ')}
+                    </Typography>
+                    <List sx={{ listStyleType: 'disc', pl: 3, mt: 1 }} dense>
+                      {project.contributions.map((item) => (
+                        <ListItem key={item} sx={{ display: 'list-item', py: 0.5 }}>
+                          <ListItemText
+                            primaryTypographyProps={{ variant: 'body2' }}
+                            primary={item}
+                          />
+                        </ListItem>
+                      ))}
+                    </List>
+                    <Stack direction="row" spacing={1.5} mt={1.5}>
+                      {project.repository ? (
+                        <Button
+                          href={project.repository}
+                          target="_blank"
+                          rel="noreferrer"
+                          size="small"
+                        >
+                          Repositorio
+                        </Button>
+                      ) : null}
+                      {project.liveDemo ? (
+                        <Button
+                          href={project.liveDemo}
+                          target="_blank"
+                          rel="noreferrer"
+                          size="small"
+                          variant="outlined"
+                        >
+                          Demo
+                        </Button>
+                      ) : null}
+                    </Stack>
+                  </Box>
                 </Stack>
               </Box>
             ))}
