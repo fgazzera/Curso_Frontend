@@ -79,8 +79,7 @@ function ContactFormPage() {
           Contáctanos
         </Typography>
         <Typography variant="body1" color="text.secondary">
-          Completá el formulario y nos pondremos en contacto a la brevedad. Este flujo replica el
-          formulario del proyecto Angular, pero con React Hook Form y componentes de Material UI.
+          Completá el formulario y nos pondremos en contacto a la brevedad.
         </Typography>
       </Paper>
 
